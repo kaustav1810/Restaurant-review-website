@@ -1,0 +1,26 @@
+<%- include("partials/header") %>
+
+	<div class="container user_profile">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-6">
+					<img class="img-thumbnail img-fluid" src="<%=user.Avatar%>">
+				</div>
+				<div class="col-md-6">
+					<h1 id="user_name"><%= user.firstName %> <%= user.lastName %></h1>
+					<h5><i class="far fa-envelope"></i> <a href="#"><%= user.email %></a></h5>
+					<h5><i class="fas fa-phone"></i> <a href="#"><%= user.contact %></a></h5>
+					<% if(restaurant!=null) %>
+						<p style="text-decoration:underline;">Bookmarked restaurants:</p>
+						<ul>
+							<% restaurant.forEach((restaurant)=>{ %>
+								<li><%= restaurant.name %><i class="fas fa-trash"></i></li>
+								<% }) %>
+						</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+<%- include("partials/footer") %>

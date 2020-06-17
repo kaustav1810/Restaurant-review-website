@@ -1,0 +1,242 @@
+
+.jumbotron{
+	margin-top:30px;
+}
+
+.navbar{
+	margin-bottom:20px;	
+}
+
+.wrapper{
+	display: flex;
+	width:100%;
+	align-items:stretch;
+}
+
+#footer{
+	position:absolute;
+	width:100%;
+	height:auto;
+	background-color:black;
+	padding:10px 10px;
+}
+
+#footer a,#call{
+	color:white;
+}
+
+#footer a:hover{
+	color:orange;
+	transition:0.2s;
+	text-decoration:none;
+}
+
+.footer-top{
+	display:flex;
+	flex-direction:row;
+}
+.footer-links{
+	flex:0 0 50%;
+	margin-bottom:15px;
+}
+
+.footer-base{
+	justify-content:space-between;
+	display:flex;
+	flex-direction:row;
+	flex-wrap:nowrap;
+	align-items:center;
+}
+
+.footer-social ul{
+	list-style:none;
+	display:inline;
+	vertical-align: baseline;
+	padding-left:0;
+}
+
+.footer-info{
+	display:flex;
+	flex-wrap:wrap;
+	/* vertical-align:baseline; */
+	margin:30px;
+}
+
+.footer-contact{
+	flex:0 0 33%;
+	margin:30px;
+	align-items:justify;
+}
+
+.footer-contact-options{
+	display:flex;
+	flex-direction:column;
+}
+
+
+/* The sidebar menu */
+.sidebar {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  align-items:stretch;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+}
+
+/* The sidebar links */
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  margin-bottom:70px;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* The button used to open the sidebar */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  margin-right:10px;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s; /* If you want a transition effect */
+  padding: 20px;
+}
+
+#restaurant_details{
+	margin-left:20%;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+#delete{
+	display:inline;
+}
+
+
+.navbar-light .navbar-nav .nav-link:hover{
+	background-color:gray;
+	color:white;
+}
+
+.navbar-light .navbar-brand:hover{
+	background-color:gray;
+	color:white;
+}
+ 
+.card-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.actions-buttons{
+	display:inline;
+}
+
+#feedback{
+	display:none;
+}
+
+.far{
+	padding-bottom:10px;
+	padding-right:10px;
+}
+
+.far:hover{
+	color:red;
+	cursor:pointer;
+}
+
+.fas:hover{
+	color:red;
+	cursor:pointer;
+}
+
+
+.user_profile{
+	font-size:25px;
+}
+
+.user_profile li{
+	margin-bottom:20px;
+}
+
+#user_name{
+	font-size:1.5em;
+}
+
+/* modal CSS properties*/
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */ 
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 60%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0); /*Black w/ opacity*/
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* read more */
+.show-read-more .more-text{
+        display: none;
+    }
