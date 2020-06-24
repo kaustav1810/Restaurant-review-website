@@ -51,8 +51,16 @@
 .footer-social ul{
 	list-style:none;
 	display:inline;
-	vertical-align: baseline;
-	padding-left:0;
+}
+
+.footer-social li{
+	display:inline;
+	padding-left:20px;
+	padding-right:20px;
+}
+
+.footer-social li span{
+	font-size:1.5em;
 }
 
 .footer-info{

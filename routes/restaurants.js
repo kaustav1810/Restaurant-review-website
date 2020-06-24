@@ -9,7 +9,7 @@ var middleware = require("../middleware");
 // app.set("view engine","ejs");
 // app.use(bodyParser.urlencoded({extended:true}));
 
-var api = "8387e6e78ff3348550e50d77718d1f6b";
+var api = process.env.key;
 	
 var url = "https://developers.zomato.com/api/v2.1/";
 
