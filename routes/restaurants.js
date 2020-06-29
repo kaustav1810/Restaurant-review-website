@@ -25,23 +25,6 @@ app.get("/",(req,res)=>{
 
 //INDEX-view all restaurants
 
-// app.get("/results",(req,res)=>{
-// 	var rest = req.query.rest;
-// 	var city = req.query.city;
-	
-// 	var url1=url+"search?apikey="+api+"&entity_type=city&count=6"+"&q="+rest;
-	
-// 	var url4 = url+"cities?"+"apikey="+api+"&count=5"+"&q="+city;
-	
-// 	Promise.all([rp({uri: url1,json:true}),rp({uri:url4,json:true})]).then(([data,city])=>{
-// 		res.render("index",{data,city});
-// 	}).catch(err=>{
-// 		console.log(err);
-// 		res.sendStatus(500);
-// 	});
-	
-// });
-
 app.get("/results",(req,res)=>{
 	var rest = req.query.rest;
 	var city = req.query.city;
@@ -109,6 +92,18 @@ app.post("/:id/:name/bookmark",(req,res)=>{
 		
 		console.log("Success");
 		res.redirect("/"+req.params.id+"/details");
+	
+});
+
+// delete a bookmarked restaurant
+app.get("/:reqid/:userid/delete",(req,res)=>{
+	Restaurant.deleteOne({'res_id':req.params.reqid,'user.id':req.params.userid},(err)=>{
+		if(err)
+			console.log("failed to delete!!!");
+		console.log("successfully deleted!!!");
+	});
+	
+	res.redirect("/results");
 	
 });
 

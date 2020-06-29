@@ -14,7 +14,11 @@
 						<p style="text-decoration:underline;">Bookmarked restaurants:</p>
 						<ul>
 							<% restaurant.forEach((restaurant)=>{ %>
-								<li><%= restaurant.name %><i class="fas fa-trash"></i></li>
+								<li>
+									<a href="/<%=restaurant.res_id%>/details"><%= restaurant.name %></a>
+									<form action="/<%=restaurant.res_id%>/<%=user._id%>/delete" method="GET">
+										<input type="submit"><i class="fas fa-trash"></i></input>
+									</form>
 								<% }) %>
 						</ul>
 				</div>
