@@ -1,10 +1,13 @@
-var express = require("express");
-var app		= express.Router();
-var passport = require("passport");
-var rp		 = require("request-promise");
-var bodyParser = require("body-parser");
-var Restaurant	 = require("../models/restaurant");
-var middleware = require("../middleware");
+require("dotenv").config();
+
+var express			= require("express");
+var app				= express.Router();
+var passport		= require("passport");
+var rp				= require("request-promise");
+var bodyParser 		= require("body-parser");
+var Restaurant		= require("../models/restaurant");
+var middleware 		= require("../middleware");
+var request			= require("request");
 
 // app.set("view engine","ejs");
 // app.use(bodyParser.urlencoded({extended:true}));
@@ -13,6 +16,8 @@ var api = process.env.key;
 	
 var url = "https://developers.zomato.com/api/v2.1/";
 
+var entity_id;
+
 
 app.get("/",(req,res)=>{
 	res.render("landing");
@@ -20,22 +25,57 @@ app.get("/",(req,res)=>{
 
 //INDEX-view all restaurants
 
+// app.get("/results",(req,res)=>{
+// 	var rest = req.query.rest;
+// 	var city = req.query.city;
+	
+// 	var url1=url+"search?apikey="+api+"&entity_type=city&count=6"+"&q="+rest;
+	
+// 	var url4 = url+"cities?"+"apikey="+api+"&count=5"+"&q="+city;
+	
+// 	Promise.all([rp({uri: url1,json:true}),rp({uri:url4,json:true})]).then(([data,city])=>{
+// 		res.render("index",{data,city});
+// 	}).catch(err=>{
+// 		console.log(err);
+// 		res.sendStatus(500);
+// 	});
+	
+// });
+
 app.get("/results",(req,res)=>{
 	var rest = req.query.rest;
 	var city = req.query.city;
+	// var entity_id;
+	var entity;
 	
-	var url1=url+"search?apikey="+api+"&entity_type=city&count=6"+"&q="+rest;
+	var url5=url+"locations?query="+city+"&apikey="+api;
+	var url4 = url+"cities?"+"&count=5"+"&q="+city+"&apikey="+api;
 	
-	var url4 = url+"cities?"+"apikey="+api+"&count=5"+"&q="+city;
-	
-	Promise.all([rp({uri: url1,json:true}),rp({uri:url4,json:true})]).then(([data,city])=>{
-		res.render("index",{data,city});
-	}).catch(err=>{
-		console.log(err);
-		res.sendStatus(500);
+		request.get(url5, (err, res1, body) => {
+		if (err) {
+		return console.log(err);
+		}
+
+			entity = JSON.parse(body);
+
+
+			entity_id = entity.location_suggestions[0].entity_id;
+			
+		console.log(entity_id);	
+
+		var url1=url+"search?entity_id="+entity_id+"&entity_type=city&count=6"+"&q="+rest+"&apikey="+api;
+		
+		request.get(url1,(err,res2,body)=>{
+			if(err)
+				console.log(err);
+			
+			var data = JSON.parse(body);
+			
+			res.render("index",{data});
+		})
 	});
-	
 });
+
 
 
 //SHOW-show details of a restaurant

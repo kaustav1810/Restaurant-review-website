@@ -9,77 +9,86 @@
 					    style="width:100%;display:block;" class="card-img-top">
 					<% } %>
 
-						<strong>Amenities:</strong>
-						<% Restaurant.highlights.forEach(function(highlight){ %>
-							<%=highlight%>,
-								<% }) %>
+				<strong>Amenities:</strong>
+				<% Restaurant.highlights.forEach(function(highlight){ %>
+					<%=highlight%>,
+						<% }) %>
 
-									<p>
-										<strong>cuisines-</strong>
-										<%= Restaurant.cuisines %>
-									</p>
+				<p>
+					<strong>cuisines-</strong>
+					<%= Restaurant.cuisines %>
+				</p>
 
-									<p>
-										<strong>Cost for two:</strong>
-										<%= Restaurant.average_cost_for_two %>
-									</p>
+				<p>
+					<strong>Cost for two:</strong>
+					<%= Restaurant.average_cost_for_two %>
+				</p>
 
-									<p>
-										<strong>Timing:</strong>
-										<%= Restaurant.timings %>
-									</p>
+				<p>
+				<strong>Timing:</strong>
+				<%= Restaurant.timings %>
+				</p>
 
-									<button id="myBtn" class="btn btn-outline-danger">review</button>
-									<div id="myModal" class="modal">
+<button id="myBtn" class="btn btn-outline-danger">review</button>
+			
+<div id="myModal" class="modal">
 
-										<!-- Modal content -->
-										<div class="modal-content">
-											<span class="close">&times;</span>
-											<p>
-												Enter your review!
-											</p>
-											<form action="/<%=Restaurant.id%>/review" method="POST" onsubmit="confirmation()">
-												<i class="far fa-smile"></i>
-												<i class="far fa-meh"></i>
-												<i class="far fa-frown"></i>
-												<i class="far fa-angry"></i>
-												<div class="input-group" id="feedback">
-													<input type="text" class="form-control" name="comment[text]" placeholder="How can we improve?">
-												</div>
-											</form>
-										</div>
-									</div>
-									<form action="" method="GET" class="actions-buttons">
-										<button type="button" class="btn btn-outline-danger">direction</button>
-									</form>
-									<form action="/<%=Restaurant.id%>/<%=Restaurant.name%>/bookmark" method="POST" class="actions-buttons">
-										<button class="btn btn-outline-danger">bookmark</button>
-									</form>
-									<form action="" method="GET" class="actions-buttons">
-										<button type="button" class="btn btn-outline-danger">share</button>
-									</form>
-									<% review.user_reviews.forEach(function(review){ %>
-										<% if(review.review.review_text!=""){ %>
-											<p class="show-read-more">
-												<%= review.review.review_text %>
-													<em>by
-														<strong>
-															<%=review.review.user.name%>
-														</strong>
-													</em> on
-													<%= review.review.review_time_friendly%>
-											</p>
-											<% } %>
-												<% }) %>
-													<% if(Restaurant.photos!=null){ %>
-														<% Restaurant.photos.forEach(function(photo){ %>
-															<img src="<%=photo.photo.url%>" class="img-thumbnail img-fluid">
-															<% })}else{ %>
-																No photos available!!
-																<% } %>
-		</div>
+	<!-- Modal content -->
+	<div class="modal-content">
+		<span class="close">&times;</span>
+		<p>
+			Enter your review!
+		</p>
+		<form action="/<%=Restaurant.id%>/review" method="POST" onsubmit="confirmation()">
+			<i class="far fa-smile"></i>
+			<i class="far fa-meh"></i>
+			<i class="far fa-frown"></i>
+			<i class="far fa-angry"></i>
+			<div class="input-group" id="feedback">
+				<input type="text" class="form-control" name="comment[text]" placeholder="How can we improve?">
+			</div>
+		</form>
 	</div>
+</div>
+
+			<form action="" method="GET" class="actions-buttons">
+				<button type="button" class="btn btn-outline-danger">direction</button>
+			</form>
+
+			<form action="/<%=Restaurant.id%>/<%=Restaurant.name%>/bookmark" method="POST" class="actions-buttons">
+				<button class="btn btn-outline-danger">bookmark</button>
+			</form>
+			<form action="" method="GET" class="actions-buttons">
+				<button type="button" class="btn btn-outline-danger">share</button>
+			</form>
+			<div id='map' style='width: 300px; height: 400px;'></div>
+			<script>
+			mapboxgl.accessToken = 'pk.eyJ1Ijoia2F1c3RhdjE4MTAiLCJhIjoiY2s2Z3Q4aDNoMGExMjNlbzV6N3p6bHgwdiJ9.kNd-EKUJeezu5BmqS3QaVQ';
+		var map = new mapboxgl.Map({
+			container: 'map',
+			style: 'mapbox://styles/mapbox/streets-v11',
+			center: [<%= Restaurant.location.longitude %>,<%= Restaurant.location.latitude %>], 
+			zoom: 15 // starting zoom
+		});
+			</script>
+		<% review.user_reviews.forEach(function(review){ %>
+			<% if(review.review.review_text!=""){ %>
+				<p class="show-read-more"><%= review.review.review_text %>
+				<em>by
+				<strong><%=review.review.user.name%></strong>
+				</em> on <%= review.review.review_time_friendly%>
+				</p>
+			<% } %>
+		<% }) %>
+			<% if(Restaurant.photos!=null){ %>
+				<% Restaurant.photos.forEach(function(photo){ %>
+					<img src="<%=photo.photo.url%>" class="img-thumbnail img-fluid">
+			<% })}else{ %>
+					No photos available!!
+					<% } %>
+</div>
+</div>
 	
-	<script type="text/javascript" src="/javascripts/modal.js"></script>
-	<script type="text/javascript" src="/javascripts/readMore.js"></script>
-	<%- include("partials/footer") %>
+<script type="text/javascript" src="/javascripts/modal.js"></script>
+<script type="text/javascript" src="/javascripts/readMore.js"></script>
+<%- include("partials/footer") %>

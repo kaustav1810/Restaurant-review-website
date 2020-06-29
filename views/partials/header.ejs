@@ -6,7 +6,10 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 	<link rel="stylesheet" href="/stylesheets/main.css">
+	<script src='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js'></script>
+	<link href='https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css' rel='stylesheet' />
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 </head>
 
 <body>
@@ -34,7 +37,8 @@
 						<a class="nav-link" href="/">Home</a>
 					</li>
 					<form action="/results" method="GET" class="form-inline my-2 my-lg-0">
-						<input class="form-control mr-sm-2 ml-lg-5" type="search" name="rest" placeholder="Search by restaurants">
+						<input class="form-control mr-sm-2 ml-lg-5" type="search" name="rest" placeholder="Enter Restaurant name">
+						<input class="form-control mr-sm-2 ml-lg-5" type="search" name="city" placeholder="Enter Restaurant city">
 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 					</form>
 				</ul>
