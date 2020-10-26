@@ -4,6 +4,7 @@ var app		= express.Router();
 var passport = require("passport");
 var User	 = require("../models/user");
 var Restaurant  = require("../models/restaurant");
+var Review  = require("../models/review");
 var middleware = require("../middleware");
 var async = require("async");
 var nodemailer  = require("nodemailer");
@@ -162,12 +163,13 @@ app.get("/user/:id",(req,res)=>{
 			res.redirect("/")
 		}
 	Restaurant.find().where('user.id').equals(newUser._id).exec((err,newRestaurant)=>{
-		
+    
 		if(err){
 			console.log("user not found:(")
 			res.redirect("/")
 		}
-		res.render("user",{user:newUser,restaurant:newRestaurant});
+    res.render("user",{user:newUser,restaurant:newRestaurant});
+    
 	})
 	})
 })

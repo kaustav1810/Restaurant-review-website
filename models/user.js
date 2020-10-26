@@ -1,5 +1,6 @@
 var mongoose 				= require("mongoose");
 var	passportLocalMongoose	= require("passport-local-mongoose");
+const Review = require("./review");
 
 //user schema
 var userSchema = new mongoose.Schema({
@@ -11,7 +12,18 @@ var userSchema = new mongoose.Schema({
 	contact:String,
 	resetPasswordToken: String,
     resetPasswordExpires: Date,
-	Avatar:String
+	Avatar:String,
+	Reviews:[
+		{
+			id:{
+				type:mongoose.Schema.Types.ObjectId,
+				ref:"Review"
+			},
+			text:String,
+			rest_id:String,
+			rest_name:String
+		}
+	]
 })
 
 userSchema.plugin(passportLocalMongoose);

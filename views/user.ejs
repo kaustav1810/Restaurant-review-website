@@ -21,6 +21,15 @@
 									</form>
 								<% }) %>
 						</ul>
+						<p>-------Your Reviews-----</p>
+						<ul>
+							<% user.Reviews.forEach((review)=>{ %>
+								<li>
+									<%= review.text%> ---
+									 <a href="/<%=review.rest_id%>/details"><%= review.rest_name %></a>
+								</li>
+							<% }) %>
+						</ul>
 				</div>
 			</div>
 
