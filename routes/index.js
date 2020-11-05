@@ -1,15 +1,16 @@
 require("dotenv").config();
-var express = require("express");
-var app		= express.Router();
-var passport = require("passport");
-var User	 = require("../models/user");
-var Restaurant  = require("../models/restaurant");
-var Review  = require("../models/review");
-var middleware = require("../middleware");
-var async = require("async");
-var nodemailer  = require("nodemailer");
-var crypto = require("crypto");
+const express = require("express");
+const app		= express.Router();
+const passport = require("passport");
+const User	 = require("../models/user");
+const Restaurant  = require("../models/restaurant");
+const Review  = require("../models/review");
+const middleware = require("../middleware");
+const async = require("async");
+const nodemailer  = require("nodemailer");
+const crypto = require("crypto");
 
+const imageMimeTypes = ['image/jpeg', 'image/png', 'images/gif']
 
 //================
 //AUTH ROUTES
@@ -24,7 +25,9 @@ app.get("/register",(req,res)=>{
 app.post("/register",(req,res)=>{
 	
 	var newUser = new User(req.body);
-	
+  
+  saveCover(newUser, req.body.cover)
+
 	User.register(newUser,req.body.password,(err,user)=>{
 		if(err)
 			console.log(err);
@@ -193,5 +196,15 @@ app.get('/logout', function(req, res){
   req.logout();
   res.redirect('/');
 });
+
+
+function saveCover(book, coverEncoded) {
+  if (coverEncoded == null) return
+  const cover = JSON.parse(coverEncoded)
+  if (cover != null && imageMimeTypes.includes(cover.type)) {
+    book.coverImage = new Buffer.from(cover.data, 'base64')
+    book.coverImageType = cover.type
+  }
+}
 
 module.exports = app;

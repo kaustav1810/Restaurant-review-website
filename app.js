@@ -18,7 +18,7 @@ var restaurantRoutes = require("./routes/restaurants");
 
 
 app.set("view engine","ejs");
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({limit: '200mb',extended:true}));
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
 mongoose.set("useUnifiedTopology",true);

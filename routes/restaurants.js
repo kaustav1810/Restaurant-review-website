@@ -95,7 +95,7 @@ app.get('/:reqid/:userid/delete', (req, res) => {
 		console.log('successfully deleted!!!');
 	});
 
-	res.redirect('/results');
+	res.redirect(`/user/${req.params.userid}`);
 });
 
 module.exports = app;

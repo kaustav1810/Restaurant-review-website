@@ -4,7 +4,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-6">
-					<img class="img-thumbnail img-fluid" src="<%=user.Avatar%>">
+					<img class="img-thumbnail img-fluid" src="<%=user.coverImagePath%>" >
 				</div>
 				<div class="col-md-6">
 					<h1 id="user_name"><%= user.firstName %> <%= user.lastName %></h1>
@@ -16,8 +16,9 @@
 							<% restaurant.forEach((restaurant)=>{ %>
 								<li>
 									<a href="/<%=restaurant.res_id%>/details"><%= restaurant.name %></a>
-									<form action="/<%=restaurant.res_id%>/<%=user._id%>/delete" method="GET">
-										<input type="submit"><i class="fas fa-trash"></i></input>
+									<form action="/<%=restaurant.res_id%>/<%=user._id%>/delete" 
+										method="GET">
+										<button><i class="fas fa-trash"></i></button>
 									</form>
 								<% }) %>
 						</ul>
@@ -35,5 +36,4 @@
 
 		</div>
 	</div>
-
 <%- include("partials/footer") %>

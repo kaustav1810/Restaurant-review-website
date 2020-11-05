@@ -1,10 +1,11 @@
-var Restaurant = require("./models/restaurant");
-var Review = require("./models/review");
+const Restaurant = require("./models/restaurant");
+const Review = require("./models/review");
+const User = require("./models/user");
 
 function seedDB(){
 	Restaurant.deleteMany({},(err)=>{
 		if(err)
-			console.log(err);
+			console.log("cannot delete reataurants!!");
 		else{
 			console.log("restaurant deleted");
 			Review.deleteMany({},(err)=>{
@@ -14,6 +15,12 @@ function seedDB(){
 					console.log("review removed");
 			})
 		}
+	})
+
+	User.deleteMany({},(err)=>{
+		if(err) console.log("cannot delete users!!");
+
+		else console.log("Users deleted!!");
 	})
 }
 
