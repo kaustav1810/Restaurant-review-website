@@ -1,4 +1,4 @@
-var express  				= require("express"),
+const express  				= require("express"),
 	app		 				= express(),
 	bodyParser 				= require("body-parser"),
 	mongoose				= require("mongoose"),
@@ -9,19 +9,20 @@ var express  				= require("express"),
 	expressSession			= require("express-session"),
     User					= require("./models/user"),
 	seedDB					= require("./seed");
-
+	
 // seedDB();
 //importing different ROUTES
-var indexRoutes = require("./routes/index");
-var reviewRoutes     = require("./routes/reviews");
-var restaurantRoutes = require("./routes/restaurants");
-
+const indexRoutes = require("./routes/index");
+const reviewRoutes     = require("./routes/reviews");
+const restaurantRoutes = require("./routes/restaurants");
+const userRoutes = require("./routes/user");
 
 app.set("view engine","ejs");
-app.use(bodyParser.urlencoded({limit: '200mb',extended:true}));
+app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
 mongoose.set("useUnifiedTopology",true);
+mongoose.set('useFindAndModify', false);
 mongoose.connect("mongodb://localhost:27017/restaurants",{useNewUrlParser: true});
 
 //================
@@ -48,7 +49,7 @@ app.get("/",(req,res)=>{
 	res.render("landing");
 })
 
-app.use(indexRoutes,restaurantRoutes,reviewRoutes);
+app.use(indexRoutes,restaurantRoutes,reviewRoutes,userRoutes);
 
 app.listen(3000,()=>{
 	console.log("server started!!");

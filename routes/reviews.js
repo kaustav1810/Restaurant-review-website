@@ -1,11 +1,11 @@
-var express = require('express');
-var app = express.Router();
-var passport = require('passport');
-var Review = require('../models/review');
-var User = require('../models/user');
-var Restaurant = require('../models/restaurant');
-var middleware = require('../middleware');
-const { default: Axios } = require('axios');
+const express = require('express'),
+ app = express.Router(),
+ passport = require('passport'),
+ Review = require('../models/review'),
+ User = require('../models/user'),
+ Restaurant = require('../models/restaurant'),
+ middleware = require('../middleware'),
+ Axios = require('axios');
 
 //CREATE-create a review and add to the particular restaurant
 app.post('/:id/review', async (req, res) => {
@@ -36,16 +36,17 @@ app.post('/:id/review', async (req, res) => {
 
 	Review.create(newReview);
 
-	User.findById(req.user._id, (err, foundUser) => {
-		if (err) console.log(err);
-		let userReview = {};
-		userReview.id = newReview._id;
-		userReview.text = newReview.text;
-		userReview.rest_id = newReview.rest_id;
-		userReview.rest_name = newReview.rest_name;
+	let foundUser = await User.findById(req.user._id);
+
+		let userReview = {
+			id:newReview._id,
+			text:newReview.text,
+			rest_id:newReview.rest_id,
+			rest_name:newReview.rest_name
+		};
+		
 		foundUser.Reviews.push(userReview);
 		foundUser.save();
-	});
 	res.redirect('/' + req.params.id + '/details');
 });
 

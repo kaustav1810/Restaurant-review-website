@@ -4,7 +4,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-6">
-					<img class="img-thumbnail img-fluid" src="<%=user.coverImagePath%>" >
+					<img class="img-thumbnail img-fluid" src="<%=user.avatar%>" >
 				</div>
 				<div class="col-md-6">
 					<h1 id="user_name"><%= user.firstName %> <%= user.lastName %></h1>
@@ -23,14 +23,25 @@
 								<% }) %>
 						</ul>
 						<p>-------Your Reviews-----</p>
+						<% if(user.Reviews.length==0){ %>
+						<p>You have'nt reviewed any restaurants yet!</p>
+							<% } %>
 						<ul>
 							<% user.Reviews.forEach((review)=>{ %>
 								<li>
 									<%= review.text%> ---
 									 <a href="/<%=review.rest_id%>/details"><%= review.rest_name %></a>
+									 <form action="/<%=review.rest_id%>/<%=user._id%>/reviews/delete" 
+										method="GET">
+										<button><i class="fas fa-trash"></i></button>
+									</form>
 								</li>
 							<% }) %>
 						</ul>
+
+						<form action="/<%=user._id%>/edit" method="GET">
+							<button>Edit</button>
+						</form>
 				</div>
 			</div>
 

@@ -177,15 +177,15 @@
 	display:none;
 }
 
+.active{
+  cursor: pointer;
+  color:red;
+}
 .far{
 	padding-bottom:10px;
 	padding-right:10px;
 }
 
-.far:hover{
-	color:red;
-	cursor:pointer;
-}
 
 .fas:hover{
 	color:red;

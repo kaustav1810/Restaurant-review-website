@@ -12,14 +12,7 @@ var userSchema = new mongoose.Schema({
 	contact:String,
 	resetPasswordToken: String,
     resetPasswordExpires: Date,
-	coverImage: {
-		type: Buffer,
-		required: true
-	  },
-	  coverImageType: {
-		type: String,
-		required: true
-	  },
+	  avatar:String,
 	Reviews:[
 		{
 			id:{
@@ -33,11 +26,6 @@ var userSchema = new mongoose.Schema({
 	]
 })
 
-userSchema.virtual('coverImagePath').get(function() {
-	if (this.coverImage != null && this.coverImageType != null) {
-	  return `data:${this.coverImageType};charset=utf-8;base64,${this.coverImage.toString('base64')}`
-	}
-  })
 userSchema.plugin(passportLocalMongoose);
 
 var User = mongoose.model("User",userSchema);

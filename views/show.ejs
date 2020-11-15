@@ -45,7 +45,8 @@
 			<i class="far fa-frown"></i>
 			<i class="far fa-angry"></i>
 			<div class="input-group" id="feedback">
-				<input type="text" class="form-control" name="comment" placeholder="How can we improve?">
+				<input type="text" class="form-control" name="comment" placeholder="Enter your review">
+				<button>POST</button>
 			</div>
 		</form>
 	</div>
@@ -61,16 +62,6 @@
 			<form action="" method="GET" class="actions-buttons">
 				<button type="button" class="btn btn-outline-danger">share</button>
 			</form>
-			<div id='map' style='width: 300px; height: 400px;'></div>
-			<script>
-			mapboxgl.accessToken = 'pk.eyJ1Ijoia2F1c3RhdjE4MTAiLCJhIjoiY2s2Z3Q4aDNoMGExMjNlbzV6N3p6bHgwdiJ9.kNd-EKUJeezu5BmqS3QaVQ';
-		var map = new mapboxgl.Map({
-			container: 'map',
-			style: 'mapbox://styles/mapbox/streets-v11',
-			center: [<%= Restaurant.location.longitude %>,<%= Restaurant.location.latitude %>], 
-			zoom: 15 // starting zoom
-		});
-			</script>
 		<% review.user_reviews.forEach(function(review){ %>
 			<% if(review.review.review_text!=""){ %>
 				<p class="show-read-more"><%= review.review.review_text %>

@@ -7,8 +7,8 @@ const rp = require('request-promise');
 const bodyParser = require('body-parser');
 const Restaurant = require('../models/restaurant');
 const middleware = require('../middleware');
-const request = require('request');
 const axios = require('axios');
+const User = require('../models/user');
 
 const api = process.env.key;
 
@@ -70,32 +70,6 @@ app.get('/:id/details', (req, res) => {
 			console.log(err);
 			res.sendStatus(500);
 		});
-});
-
-//Bookmark a restaurant
-app.post('/:id/:name/bookmark', (req, res) => {
-	let user = {
-		id: req.user._id,
-		username: req.user.username
-	};
-	let res_id = req.params.id;
-	let name = req.params.name;
-	let newRestaurant = { res_id: res_id, user: user, name: name };
-
-	Restaurant.create(newRestaurant);
-
-	console.log('Success');
-	res.redirect('/' + req.params.id + '/details');
-});
-
-// delete a bookmarked restaurant
-app.get('/:reqid/:userid/delete', (req, res) => {
-	Restaurant.deleteOne({ res_id: req.params.reqid, 'user.id': req.params.userid }, (err) => {
-		if (err) console.log('failed to delete!!!');
-		console.log('successfully deleted!!!');
-	});
-
-	res.redirect(`/user/${req.params.userid}`);
 });
 
 module.exports = app;
