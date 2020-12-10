@@ -29,10 +29,10 @@
 				<%= Restaurant.timings %>
 				</p>
 
-<button id="myBtn" class="btn btn-outline-danger">review</button>
+<button id="reviewBtn" class="btn btn-outline-danger">review</button>
 			
-<div id="myModal" class="modal">
-
+<div class="modal">
+<div class="modal-dialog">
 	<!-- Modal content -->
 	<div class="modal-content">
 		<span class="close">&times;</span>
@@ -51,6 +51,7 @@
 		</form>
 	</div>
 </div>
+</div>
 
 			<form action="" method="GET" class="actions-buttons">
 				<button type="button" class="btn btn-outline-danger">direction</button>
@@ -60,7 +61,8 @@
 				<button class="btn btn-outline-danger">bookmark</button>
 			</form>
 			<form action="" method="GET" class="actions-buttons">
-				<button type="button" class="btn btn-outline-danger">share</button>
+				<input type="hidden" class="dummy" value= '<%- JSON.parse(Restaurant.id) %>' >
+				<button type="button" id="shareBtn" class="btn btn-outline-danger">share</button>
 			</form>
 		<% review.user_reviews.forEach(function(review){ %>
 			<% if(review.review.review_text!=""){ %>
@@ -79,7 +81,6 @@
 					<% } %>
 </div>
 </div>
-	
-<script type="text/javascript" src="/javascripts/modal.js"></script>
-<script type="text/javascript" src="/javascripts/readMore.js"></script>
+
+
 <%- include("partials/footer") %>

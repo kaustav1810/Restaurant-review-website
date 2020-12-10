@@ -15,6 +15,7 @@ const api = process.env.key;
 const url = 'https://developers.zomato.com/api/v2.1/';
 
 let entity_id;
+var MyRestaurant;
 
 app.get('/', (req, res) => {
 	res.render('landing');
@@ -71,5 +72,4 @@ app.get('/:id/details', (req, res) => {
 			res.sendStatus(500);
 		});
 });
-
 module.exports = app;
