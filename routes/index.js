@@ -1,15 +1,21 @@
 require('dotenv').config();
 const express = require('express'),
- app = express.Router(),
- passport = require('passport'),
- User = require('../models/user'),
- Restaurant = require('../models/restaurant'),
- Review = require('../models/review'),
- middleware = require('../middleware'),
- async = require('async'),
- nodemailer = require('nodemailer'),
- crypto = require('crypto'),
- multer = require('./multer');
+	app = express.Router(),
+	passport = require('passport'),
+	User = require('../models/user'),
+	Restaurant = require('../models/restaurant'),
+	Review = require('../models/review'),
+	middleware = require('../middleware'),
+	async = require('async'),
+	nodemailer = require('nodemailer'),
+	crypto = require('crypto'),
+	multer = require('./multer'),
+	cookieSession = require('cookie-session');
+require('./google-api');
+
+// Initializes passport and passport sessions
+app.use(passport.initialize());
+app.use(passport.session());
 
 //================
 //AUTH ROUTES
@@ -26,13 +32,31 @@ app.post('/register', multer.upload.single('avatar'), async (req, res, next) => 
 
 	newUser.avatar = `/uploads/${req.file.originalname}`;
 
-  await User.register(newUser, req.body.password);
-  
+	await User.register(newUser, req.body.password);
+
 	passport.authenticate('local')(req, res, () => {
 		res.redirect('/');
 	});
 });
 
+// use google oAuth authentication
+app.get(
+	'/auth/google',
+	passport.authenticate('google', {
+		scope: [ 'email', 'profile' ]
+	})
+);
+
+app.get(
+	'/auth/google/callback',
+	passport.authenticate('google', {
+		successRedirect: '/',
+		failureRedirect: '/'
+	})
+);
+
+app.get('/success', middleware.isLoggedIn, (req, res) => res.send('logged in!!'));
+app.get('/failure', (req, res) => res.send('failed!!'));
 //=============
 // handle password reset
 //=============
@@ -187,6 +211,7 @@ app.post(
 
 //handle logout request
 app.get('/logout', (req, res) => {
+	req.session.destroy();
 	req.logout();
 	res.redirect('/');
 });

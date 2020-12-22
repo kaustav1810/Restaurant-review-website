@@ -60,10 +60,8 @@
 			<form action="/<%=Restaurant.id%>/<%=Restaurant.name%>/bookmark" method="POST" class="actions-buttons">
 				<button class="btn btn-outline-danger">bookmark</button>
 			</form>
-			<form action="" method="GET" class="actions-buttons">
 				<input type="hidden" class="dummy" value= '<%- JSON.parse(Restaurant.id) %>' >
 				<button type="button" id="shareBtn" class="btn btn-outline-danger">share</button>
-			</form>
 		<% review.user_reviews.forEach(function(review){ %>
 			<% if(review.review.review_text!=""){ %>
 				<p class="show-read-more"><%= review.review.review_text %>
@@ -81,6 +79,8 @@
 					<% } %>
 </div>
 </div>
-
+<script type="text/javascript">
+	var res_id =  '<%- JSON.parse(Restaurant.id) %>'
+</script>
 
 <%- include("partials/footer") %>

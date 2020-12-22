@@ -4,6 +4,7 @@ const Review = require("./review");
 
 //user schema
 var userSchema = new mongoose.Schema({
+	googleId:String,
 	username:{type:String,unique:true,require:true},
 	password:{type:String,unique:true,require:true},
 	firstName:String,

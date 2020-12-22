@@ -2,13 +2,14 @@ const modal = document.getElementsByClassName('modal')[0];
 const content = document.getElementsByClassName('modal-content')[0];
 const reviewBtn = document.getElementById('reviewBtn');
 const shareBtn = document.getElementById('shareBtn');
-const rest = document.getElementsByClassName('dummy')[0].value;
+const rest=88;
+if(this.res_id) rest=res_id;
+const loginBtn = document.getElementById('loginBtn');
 
 // onsubmit function
 function confirmation() {
-
 	const feedback = document.getElementById('feedback');
-	
+
 	feedback.style.display = 'none';
 
 	content.innerText = 'Thank you for your feedback!!';
@@ -84,7 +85,7 @@ function review() {
 	};
 }
 
-function share(){
+function share() {
 	modal.style.display = 'flex';
 
 	content.innerHTML = '';
@@ -118,9 +119,8 @@ function share(){
 	<span>telegram</span>
 	</div>
 	</div>
-	`
+	`;
 	const span = document.getElementsByClassName('close')[0];
-
 
 	// When the user clicks on <span> (x), close the modal
 	span.onclick = function() {
@@ -128,5 +128,34 @@ function share(){
 	};
 }
 
-shareBtn.addEventListener('click',share)
-reviewBtn.addEventListener('click', review);
+function login() {
+	modal.style.display = 'flex';
+
+	content.innerHTML = '';
+
+	content.innerHTML = `
+	<span class="close">&times;</span>
+	<div>
+	<h1>LOGIN</h1>
+	<button>
+	<a href="/auth/google">login with google</a>
+	</button>
+	<p>-----OR-----</p>
+	<button>
+	<a href="/login">login</a>
+	</button>
+	
+	</div>
+	`;
+
+	const span = document.getElementsByClassName('close')[0];
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+		modal.style.display = 'none';
+	};
+}
+
+shareBtn && shareBtn.addEventListener('click', share);
+reviewBtn && reviewBtn.addEventListener('click', review);
+loginBtn.addEventListener('click', login);
