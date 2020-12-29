@@ -29,16 +29,15 @@ app.get('/results', (req, res) => {
 	// let entity_id;
 	let entity;
 
-	let url1 = `${url}locations?query=${city}&apikey=${api}`;
+	// let url1 = `${url}locations?query=${city}&apikey=${api}`;
+	let url1 = `${url}cities?q=${city}&apikey=${api}`;
 	//refactored
 	axios
 		.get(url1)
 		.then((body) => {
-			entity = body.data;
-			entity_id = entity.location_suggestions[0].entity_id;
+			entity_id = body.data.location_suggestions[0].id;
 
-			url1 = `${url}search?entity_id=${entity_id}
-		&entity_type=${city}&count=6&q=${rest}&apikey=${api}`;
+			url1 = `${url}search?entity_id=${entity_id}&q=${city}&entity_type=city&count=6&q=${rest}&apikey=${api}`;
 
 			axios
 				.get(url1)

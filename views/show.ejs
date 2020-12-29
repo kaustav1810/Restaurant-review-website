@@ -54,15 +54,15 @@
 </div>
 
 			<form action="" method="GET" class="actions-buttons">
-				<button type="button" class="btn btn-outline-danger">direction</button>
+				<button type="button" id='directionBtn' class="btn btn-outline-danger">direction</button>
 			</form>
 
 			<form action="/<%=Restaurant.id%>/<%=Restaurant.name%>/bookmark" method="POST" class="actions-buttons">
 				<button class="btn btn-outline-danger">bookmark</button>
 			</form>
-				<input type="hidden" class="dummy" value= '<%- JSON.parse(Restaurant.id) %>' >
 				<button type="button" id="shareBtn" class="btn btn-outline-danger">share</button>
-		<% review.user_reviews.forEach(function(review){ %>
+				<div id='map' style='width: 400px; height: 300px;'></div>
+				<% review.user_reviews.forEach(function(review){ %>
 			<% if(review.review.review_text!=""){ %>
 				<p class="show-read-more"><%= review.review.review_text %>
 				<em>by
@@ -80,7 +80,13 @@
 </div>
 </div>
 <script type="text/javascript">
-	var res_id =  '<%- JSON.parse(Restaurant.id) %>'
+	const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+	const res_id =  '<%- JSON.parse(Restaurant.id) %>';
+	const long = '<%- JSON.parse(Restaurant.location.longitude) %>';
+	const lat = '<%- JSON.parse(Restaurant.location.latitude) %>';
+
 </script>
 
+<script src="/javascripts/showPageMap.js"></script>
+	
 <%- include("partials/footer") %>
