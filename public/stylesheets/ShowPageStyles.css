@@ -1,0 +1,98 @@
+body{
+    font-size: 1.3rem;
+}
+
+.show-page-body{
+    margin:1.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.map_review{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn{
+    margin: 0 12px;
+}
+
+#directionBtn{
+    max-width: 100px;
+}
+.rest-image{
+    max-width: 700px;
+    max-height: 400px;
+    margin:1.2rem;
+}
+
+.rest-image:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: all 0.5s ease-in-out;
+}
+
+.rest-detail-info{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin:0.6rem;
+}
+
+
+.map-card{
+    display: flex;
+    flex-direction: column;
+    padding:0.5rem;
+    justify-content: space-evenly;
+    margin:1.5rem;
+    width:30%;
+    box-shadow: rgba(28, 28, 28, 0.12) 0px 2px 8px;
+    border-radius: 20px;
+}
+
+.review-section{
+    max-height: 600px;
+    overflow-y: scroll;
+    width:50%;
+    margin:1.5rem;
+}
+
+.review{
+    background-color: white;
+    border-radius: 25px;
+    
+    box-shadow: rgba(28, 28, 28, 0.12) 0px 2px 8px;
+    margin:1rem;
+    padding:0.6rem;
+}
+
+#map{
+    width:300px;
+    height:250px;
+    border-radius: 10px;
+}
+
+
+
+
+.review-section::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.review-section::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+.review-section::-webkit-scrollbar-thumb
+{   max-height: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: rgb(196, 187, 187);
+}

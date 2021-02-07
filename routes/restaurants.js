@@ -14,7 +14,7 @@ const api = process.env.key;
 
 const url = 'https://developers.zomato.com/api/v2.1/';
 
-let entity_id;
+let entity_id, rest, city, url1;
 var MyRestaurant;
 
 app.get('/', (req, res) => {
@@ -24,27 +24,21 @@ app.get('/', (req, res) => {
 //INDEX-view all restaurants
 
 app.get('/results', (req, res) => {
-	let rest = req.query.rest;
-	let city = req.query.city;
-	// let entity_id;
+	rest = req.query.rest;
+	city = req.query.city;
 	let entity;
 
-	// let url1 = `${url}locations?query=${city}&apikey=${api}`;
-	let url1 = `${url}cities?q=${city}&apikey=${api}`;
-	//refactored
-	axios
-		.get(url1)
-		.then((body) => {
+	url1 = `${url}cities?q=${city}&apikey=${api}`;
+	
+	axios.get(url1).then((body) => {
 			entity_id = body.data.location_suggestions[0].id;
 
-			url1 = `${url}search?entity_id=${entity_id}&q=${city}&entity_type=city&count=6&q=${rest}&apikey=${api}`;
+			url1 = `${url}search?entity_id=${entity_id}&q=${city}&entity_type=city&count=30&q=${rest}&apikey=${api}`;
 
-			axios
-				.get(url1)
-				.then((body) => {
-					let data = body.data;
+			axios.get(url1).then((body) => {
+					let restaurants = body.data.restaurants;
 
-					res.render('index', { data });
+					res.render('index', { restaurants });
 				})
 				.catch((err) => {
 					console.log(err);
@@ -53,6 +47,24 @@ app.get('/results', (req, res) => {
 		.catch((err) => {
 			console.log(err);
 		});
+});
+
+// view sorted results
+app.get('/results/sorted', (req, res) => {
+	let filterBy = req.query.filter;
+
+	console.log(filterBy);
+
+	url1 = `${url1}&sort=${filterBy.split(' ')[0]}`;
+
+	axios
+		.get(url1)
+		.then((body) => {
+			let restaurants = filterBy == 'cost asc' ? body.data.restaurants.reverse() : body.data.restaurants;
+
+			res.render('index', { restaurants });
+		})
+		.catch((e) => console.log('filter error!!!'));
 });
 
 //SHOW-show details of a restaurant

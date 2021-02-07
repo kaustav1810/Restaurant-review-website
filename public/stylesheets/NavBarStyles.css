@@ -1,0 +1,32 @@
+
+.sign-in-buttons{
+    display: flex;
+    justify-content: space-between;
+}
+
+a{
+  text-decoration: none;  
+}
+#menu-toggle{
+    display: flex;
+    align-items: center;
+}
+
+.nav-headers{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.nav-headers *{
+    margin:1rem;
+}
+.navbar{
+    padding:0.6rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#loginBtn{
+    width:100px;
+}

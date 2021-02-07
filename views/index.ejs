@@ -9,21 +9,21 @@
 	
 		<div class="container-fluid">
 			<div class="container">
+			<button id='filterBtn'>Filters</button>
 			<div class="row">
-			<% data.restaurants.forEach(function(rest){ %>
+			<% restaurants.forEach(function(rest){ %>
 				<div class="col-md-4">
-					<div class="card" style="width: 18rem;">
+					<div class="card rest-card" style="width: 18rem;">
 						<img src=<%=rest.restaurant.featured_image%> class="card-img-top">
 						<div class="card-body">
-							<h5 class="card-title"><%=rest.restaurant.name%></h5>
-							<p class="card-text">location:<%=rest.restaurant.location.address%>,<%=rest.restaurant.location.locality%>,
-							<%=rest.restaurant.location.city%><br>
-							user rating: <%=rest.restaurant.user_rating.aggregate_rating%><br>
-							reviewed by <%=rest.restaurant.all_reviews_count%> people<br>
+							<h5 class="card-title">
+								<a href='/<%=rest.restaurant.id%>/details' class='main-link'><%=rest.restaurant.name%></a>
+							</h5>
+							<p class="card-text">
+							user rating: <strong><%=rest.restaurant.user_rating.aggregate_rating%></strong>/5
+							(<%=rest.restaurant.all_reviews_count%> reviews)<br>
+							Cost for 2:<%= rest.restaurant.average_cost_for_two%>
 							Contact: <%=rest.restaurant.phone_numbers%></p>
-							<form action="/<%=rest.restaurant.id%>/details" method='GET'>
-								<input type="submit" class="btn btn-primary" value="view restaurant"/>
-							</form>
 						</div>
 					</div>
 				</div>
@@ -32,5 +32,5 @@
 			</div>	
 		</div>
 </div>
-
+<%- include('./components/modals/filterModal') %> 
 <%- include("partials/footer") %>

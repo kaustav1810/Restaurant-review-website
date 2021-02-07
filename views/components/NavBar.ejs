@@ -1,0 +1,44 @@
+
+	<div id="main">
+		
+		<nav class="navbar navbar-expand-lg">
+			<div class='nav-headers'>
+					<i id="menu-toggle" class="fas fa-bars"></i>
+					<a  href="/">CRITICA</a>
+					<a  href="/">Home</a>
+			</div>
+
+			<div>
+			<form action="/results" method="GET" class="form-inline">
+				<input class="search" name="city" placeholder="Enter Restaurant city">
+				| <input class="search" name="rest" placeholder="Enter Restaurant name">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form>
+			</div>
+			
+			<div class="sign-in-buttons">
+					
+					<% if(!currentUser){ %>
+							<button id="loginBtn" data-toggle="modal" data-target="#loginModal" class="btn btn-light rounded-pill">login</button>
+							<a class="nav-link" href="/register">Signup</a>
+						<% }else{ %>
+	
+								<div class="dropdown">
+									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+										<%= currentUser.firstName %>
+									</a>
+									
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+										<li><a class="dropdown-item" href="/user/<%=currentUser.id%>">Profile</a></li>
+										<li><a class="dropdown-item" href="#">Bookmarks</a></li>
+										<li><a class="dropdown-item" href="/logout">logout</a></li>
+									</ul>
+								</div>
+								<% } %>
+			</div>
+		</nav>
+	<!-- </div> -->
+
+<%- include('./modals/loginModal') %> 
+  <!-- </div> -->
+

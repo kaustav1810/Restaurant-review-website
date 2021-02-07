@@ -1,92 +1,108 @@
 <%- include("partials/header") %>
-	<div class="container">
-		<div class="container-fluid">
-			<% if(Restaurant.featured_image!=""){ %>
-				<img src="<%=Restaurant.featured_image%>" style="width:800px;height:500px;display:block;" class="card-img-top">
 
+
+	<div class="show-page-body">
+		<div>
+			<% if(Restaurant.featured_image!=""){ %>
+				<img src="<%=Restaurant.featured_image%>"  class="rest-image img-fluid card-img-top">
+				
 				<% }else{ %>
 					<img src="https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/foodnavigator.com/article/2019/12/16/the-double-burden-of-malnutrition-obesity-and-undernutrition-fuelled-by-poor-quality-food/10478646-1-eng-GB/The-Double-Burden-of-Malnutrition-Obesity-and-undernutrition-fuelled-by-poor-quality-food_wrbm_large.jpg"
-					    style="width:100%;display:block;" class="card-img-top">
+					class="rest-image img-fluid card-img-top">
 					<% } %>
+				</div>
+				<h2><%= Restaurant.name %> </h2>
 
-				<strong>Amenities:</strong>
+				<div class='rest-detail-info'>
 				<% Restaurant.highlights.forEach(function(highlight){ %>
-					<%=highlight%>,
+					<span class='badge rounded-pill bg-light text-dark'>
+
+					<%=highlight%>
+				</span>
 						<% }) %>
-
-				<p>
-					<strong>cuisines-</strong>
-					<%= Restaurant.cuisines %>
-				</p>
-
-				<p>
-					<strong>Cost for two:</strong>
-					<%= Restaurant.average_cost_for_two %>
-				</p>
-
-				<p>
-				<strong>Timing:</strong>
-				<%= Restaurant.timings %>
-				</p>
-
-<button id="reviewBtn" class="btn btn-outline-danger">review</button>
-			
-<div class="modal">
-<div class="modal-dialog">
-	<!-- Modal content -->
-	<div class="modal-content">
-		<span class="close">&times;</span>
-		<p>
-			Enter your review!
-		</p>
-		<form action="/<%=Restaurant.id%>/review" method="POST">
-			<i class="far fa-smile"></i>
-			<i class="far fa-meh"></i>
-			<i class="far fa-frown"></i>
-			<i class="far fa-angry"></i>
-			<div class="input-group" id="feedback">
-				<input type="text" class="form-control" name="comment" placeholder="Enter your review">
-				<button>POST</button>
+					</div>
+				
+				<div class='rest-detail-info'>
+					<p><strong>Cuisines-</strong> <%= Restaurant.cuisines %></p>
+					<p>
+						<strong>Average Cost:</strong> 
+						Rs. <%= Restaurant.average_cost_for_two %> for 2 approx.
+					</p>
 			</div>
-		</form>
-	</div>
-</div>
-</div>
 
-			<form action="" method="GET" class="actions-buttons">
-				<button type="button" id='directionBtn' class="btn btn-outline-danger">direction</button>
-			</form>
+			<div class='rest-detail-info'>
+				<p>Timing: <%= Restaurant.timings %></p>
+			</div>
 
-			<form action="/<%=Restaurant.id%>/<%=Restaurant.name%>/bookmark" method="POST" class="actions-buttons">
+			<div class='rest-detail-info'>
+			<p><strong><%= Restaurant.all_reviews_count %></strong> reviews</p>
+
+			<p><strong><%= Restaurant.user_rating.aggregate_rating %>/5</strong></p>
+		</div>
+			
+	<%# action buttons %> 
+	<div class='show-page-buttons'>
+		<button id="reviewBtn" class="btn btn-outline-danger">review</button>
+
+		<form action="/<%=Restaurant.id%>/<%=Restaurant.name%>/bookmark" method="POST" class="actions-buttons">
 				<button class="btn btn-outline-danger">bookmark</button>
-			</form>
-				<button type="button" id="shareBtn" class="btn btn-outline-danger">share</button>
-				<div id='map' style='width: 400px; height: 300px;'></div>
-				<% review.user_reviews.forEach(function(review){ %>
-			<% if(review.review.review_text!=""){ %>
+		</form>
+		
+		<button id="shareBtn" class="btn btn-outline-danger">share</button>
+				
+	</div>
+
+	<% const rest_address =  Restaurant.location.address %>
+	
+
+	<div class="map_review">
+	<%# map %> 
+	<div class='map-card'>
+		<p>Ph No: <%= Restaurant.phone_numbers %></p>
+		<strong>Direction</strong>
+		<div id='map'></div>
+		<p><%= rest_address %></p>
+		<button  id='directionBtn' class="btn btn-outline-danger">direction</button>
+	</div>
+
+
+	<%# user reviews %> 
+	<div class='review-section'>
+	<strong>Reviews</strong>
+	<% review.user_reviews.forEach(function(review){ %>
+		<% if(review.review.review_text!=""){ %>
+			<div class='review'>
 				<p class="show-read-more"><%= review.review.review_text %>
 				<em>by
 				<strong><%=review.review.user.name%></strong>
 				</em> on <%= review.review.review_time_friendly%>
 				</p>
-			<% } %>
-		<% }) %>
-			<% if(Restaurant.photos!=null){ %>
-				<% Restaurant.photos.forEach(function(photo){ %>
-					<img src="<%=photo.photo.url%>" class="img-thumbnail img-fluid">
-			<% })}else{ %>
-					No photos available!!
-					<% } %>
+			</div>
+		<% } %>
+	<% }) %>
 </div>
+	</div>
+	
+	<% if(Restaurant.photos!=null){ %>
+		<% Restaurant.photos.forEach(function(photo){ %>
+			<img src="<%=photo.photo.url%>" class="img-thumbnail img-fluid">
+		<% })} %>
 </div>
+
+
+
+
 <script type="text/javascript">
-	const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+	const mapToken = '<%-process.env.MAPBOX_TOKEN %>';
 	const res_id =  '<%- JSON.parse(Restaurant.id) %>';
 	const long = '<%- JSON.parse(Restaurant.location.longitude) %>';
 	const lat = '<%- JSON.parse(Restaurant.location.latitude) %>';
 
 </script>
 
+<%- include('./components/modals/shareModal') %>
+<%- include('./components/modals/reviewModal',{res_id:Restaurant.id}) %>
+
 <script src="/javascripts/showPageMap.js"></script>
-	
+
 <%- include("partials/footer") %>

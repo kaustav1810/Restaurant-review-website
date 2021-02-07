@@ -32,12 +32,12 @@ passport.use(
     */
 			User.findOne({ googleId: profile.id }).then((currentUser) => {
 				if (currentUser) {
-					// console.log(profile);
 					//if we already have a record with the given profile ID
 					done(null, currentUser);
 				} else {
 					//if not, create a new user
 					new User({
+						avatar:profile.picture,
 						googleId: profile.id,
 						firstName: profile.given_name,
 						lastName: profile.family_name,

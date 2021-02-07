@@ -48,7 +48,7 @@ app.get('/:resid/:userid/reviews/delete', async (req, res) => {
 
 // show user's profile page
 app.get("/user/:id",async (req,res)=>{
-    
+	
     let newUser = await User.findById(req.params.id);
 		
 	Restaurant.find().where('user.id').equals(newUser._id).exec((err,newRestaurant)=>{

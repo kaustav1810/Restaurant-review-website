@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express'),
+	mapToken = process.env.MAPBOX_TOKEN,
 	app = express.Router(),
 	passport = require('passport'),
 	User = require('../models/user'),
@@ -7,16 +8,26 @@ const express = require('express'),
 	Review = require('../models/review'),
 	middleware = require('../middleware'),
 	async = require('async'),
+	axios = require('axios'),
 	nodemailer = require('nodemailer'),
 	crypto = require('crypto'),
 	multer = require('./multer'),
 	cookieSession = require('cookie-session');
+// position = require('../public/javascripts/GeoLocation');
 require('./google-api');
 
 // Initializes passport and passport sessions
 app.use(passport.initialize());
 app.use(passport.session());
 
+// console.log(latitude,longitude);
+// // auto detect user's location
+// axios
+// 	.get(`/geocoding/v5/mapbox.places/${longitude},${latitude}.json&access_token=${mapToken}`)
+// 	.then((body) => {
+// 		console.log(body);
+// 	})
+// 	.catch((e) => console.log(e));
 //================
 //AUTH ROUTES
 //================
@@ -55,7 +66,9 @@ app.get(
 	})
 );
 
-app.get('/success', middleware.isLoggedIn, (req, res) => res.send('logged in!!'));
+app.get('/success', middleware.isLoggedIn, (req, res) => {
+	res.send('logged in!!');
+});
 app.get('/failure', (req, res) => res.send('failed!!'));
 //=============
 // handle password reset
@@ -195,10 +208,6 @@ app.post('/reset/:token', function(req, res) {
 	);
 });
 
-//show login form
-app.get('/login', (req, res) => {
-	res.render('login');
-});
 
 //handle login request
 app.post(
