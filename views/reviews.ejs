@@ -1,0 +1,17 @@
+<div class="user-profile-actions-tags">Reviews</div>
+<% if(userReviews.length==0){ %>
+        <img class="profile-svg" src="https://b.zmtcdn.com/webFrontend/691ad4ad27a5804a3033977d45390c811584432410.png" />
+        <p>You have'nt reviewed any restaurants yet!</p>
+        <% }else{ %>
+        <% for(const review of userReviews){ %>
+            <div class="review">
+                <a href="/<%=review.rest_id%>/details"><strong><%= review.rest_name %></strong></a>
+                <div>
+                <em>"<%= review.text%>"</em>
+                 <a href="/<%=review.rest_id%>/<%=user._id%>/reviews/delete">
+                    <i class="fas fa-trash"></i>
+                </a>
+                </div>
+            </div>
+        <% } %>
+    <% } %>

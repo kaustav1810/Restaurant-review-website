@@ -14,17 +14,17 @@ var userSchema = new mongoose.Schema({
 	resetPasswordToken: String,
     resetPasswordExpires: Date,
 	  avatar:String,
-	Reviews:[
-		{
-			id:{
-				type:mongoose.Schema.Types.ObjectId,
-				ref:"Review"
-			},
-			text:String,
-			rest_id:String,
-			rest_name:String
-		}
-	]
+	// Reviews:[
+	// 	{
+	// 		id:{
+	// 			type:mongoose.Schema.Types.ObjectId,
+	// 			ref:"Review"
+	// 		},
+	// 		text:String,
+	// 		rest_id:String,
+	// 		rest_name:String
+	// 	}
+	// ]
 })
 
 userSchema.plugin(passportLocalMongoose);

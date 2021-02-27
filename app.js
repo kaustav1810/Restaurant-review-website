@@ -12,10 +12,10 @@ const express  				= require("express"),
 	
 // seedDB();
 //importing different ROUTES
-const indexRoutes = require("./routes/index");
-const reviewRoutes     = require("./routes/reviews");
-const restaurantRoutes = require("./routes/restaurants");
-const userRoutes = require("./routes/user");
+const indexRoutes = require("./routes/index"),
+ reviewRoutes     = require("./routes/reviews"),
+ restaurantRoutes = require("./routes/restaurants"),
+ userRoutes = require("./routes/user");
 
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
@@ -49,7 +49,7 @@ app.get("/",(req,res)=>{
 	res.render("landing");
 })
 
-app.use(indexRoutes,restaurantRoutes,reviewRoutes,userRoutes);
+app.use(indexRoutes,restaurantRoutes,reviewRoutes,userRoutes.app);
 
 app.listen(3000,()=>{
 	console.log("server started!!");

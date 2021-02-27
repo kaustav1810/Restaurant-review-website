@@ -2,49 +2,54 @@
 
 	<div class="container user_profile">
 		<div class="container-fluid">
-			<div class="row">
-				<div class="col-md-6">
-					<img class="img-thumbnail img-fluid" src="<%=user.avatar%>" >
-				</div>
-				<div class="col-md-6">
-					<h1 id="user_name"><%= user.firstName %> <%= user.lastName %></h1>
-					<h5><i class="far fa-envelope"></i> <a href="#"><%= user.email %></a></h5>
-					<h5><i class="fas fa-phone"></i> <a href="#"><%= user.contact %></a></h5>
-					<% if(restaurant!=null) %>
-						<p style="text-decoration:underline;">Bookmarked restaurants:</p>
-						<ul>
-							<% restaurant.forEach((restaurant)=>{ %>
-								<li>
-									<a href="/<%=restaurant.res_id%>/details"><%= restaurant.name %></a>
-									<form action="/<%=restaurant.res_id%>/<%=user._id%>/delete" 
-										method="GET">
-										<button><i class="fas fa-trash"></i></button>
-									</form>
-								<% }) %>
-						</ul>
-						<p>-------Your Reviews-----</p>
-						<% if(user.Reviews.length==0){ %>
-						<p>You have'nt reviewed any restaurants yet!</p>
-							<% } %>
-						<ul>
-							<% user.Reviews.forEach((review)=>{ %>
-								<li>
-									<%= review.text%> ---
-									 <a href="/<%=review.rest_id%>/details"><%= review.rest_name %></a>
-									 <form action="/<%=review.rest_id%>/<%=user._id%>/reviews/delete" 
-										method="GET">
-										<button><i class="fas fa-trash"></i></button>
-									</form>
-								</li>
-							<% }) %>
-						</ul>
 
-						<form action="/<%=user._id%>/edit" method="GET">
-							<button>Edit</button>
-						</form>
+			<div class='profile-header'>
+				<div class="profile-header-content">
+				<div class='profile-header-image'>
+					<img src="<%=user.avatar%>" />
+					<div class='profile-header-info'>
+						<div><%= user.firstName %> <%= user.lastName %></div>
+						<div><%= user.email %> </div>
+						<div><%= user.contact %> </div>
+					</div>
+				</div>
+
+				<div class="profile-header-stats">
+					<a href="/<%=user._id%>/edit">
+						<button id='profile-edit-btn' class='btn btn-warning'>
+							Edit profile
+						</button>
+					</a>
+					<div class='profile-stats'>
+						<div><%=userReviews.length%> <span>Reviews</span></div>
+						<div><%=favourites.length%> <span>Favourites</span></div>
+					</div>
 				</div>
 			</div>
-
+			</div>
+			<div class="content">
+			<div class="list-group">
+				<div class="list-group-item list-group-item-action">Activity</div>
+				<a href="/user/<%= user._id%>" class="list-group-item list-group-item-action "  id=<%= reviews?"active-list-item":""%> aria-current="true">
+					<h4>Reviews</h4>
+				  </a>
+				  <a href="/user/<%= user._id%>/bookmarks" class="list-group-item list-group-item-action" id=<%= bookmarks?"active-list-item":""%> >
+					  <h4>Bookmarks</h4>
+				  </a>
+				  <a href="#" class="list-group-item list-group-item-action">
+					  <h4>Recently viewed</h4>
+				  </a>
+			</div>
+			<div class="user-choosen-content">
+			<!-- dynamic content goes here -->
+			<% if (reviews) { %>
+				<%- include("reviews") %>
+			 
+			<%}else if (bookmarks) { %>
+					<%- include("bookmarks") %>
+				<% } %>
+		</div>
+		</div>
 		</div>
 	</div>
 <%- include("partials/footer") %>

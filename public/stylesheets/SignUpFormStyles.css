@@ -1,4 +1,44 @@
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 400px;
+    max-height: 100%;
+  }
+  .modal-dialog .modal-content {
+    padding: 1rem;
+  }
+}
 
+.modal {
+  max-height: 100%;
+}
+
+.modal-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.modal-header .modal-close {
+  margin-top: -1.5rem;
+  background: none;
+  outline: none;
+  border: none;
+}
+
+.form-title {
+  margin: -2rem 0rem 2rem;
+}
+
+.btn-round {
+  border-radius: 3rem;
+}
+
+.delimiter {
+  padding: 1rem;
+}
 
 .signup-section {
   padding: 0.3rem 0rem;

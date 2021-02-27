@@ -3,44 +3,44 @@
 		<h1>Sign Up</h1>
 		<form action="/register" method="POST" enctype="multipart/form-data">
 		<div class="group">      
-			<input type="text" name="username" required>
+			<input type="text" name="username" required  autocomplete="off">
 			<span class="highlight"></span>
 			<span class="bar"></span>
 			<label>username</label>
 		</div>
 	<div class="group">      
-		<input type="text" name="password" required>
+		<input type="password" name="password" required  autocomplete="off">
 		<span class="highlight"></span>
 		<span class="bar"></span>
 		<label>password</label>
 	</div>
 	<div class="group">      
-		<input type="text" name="firstName" required>
+		<input type="text" name="firstName" required  autocomplete="off">
 		<span class="highlight"></span>
 		<span class="bar"></span>
 		<label>firstName</label>
 	</div>
 	<div class="group">      
-		<input type="text" name="lastName" required>
+		<input type="text" name="lastName" required  autocomplete="off">
 		<span class="highlight"></span>
 		<span class="bar"></span>
 		<label>lastName</label>
 	</div>
 	<div class="group">      
-		<input type="text" name="email" required>
+		<input type="email" name="email" required autocomplete="off">
 		<span class="highlight"></span>
 		<span class="bar"></span>
 		<label>Email</label>
 	</div>
 	<div class="group">      
-		<input type="text" name="contact" required>
+		<input type="number" name="contact" required autocomplete="off">
 		<span class="highlight"></span>
 		<span class="bar"></span>
 		<label>Contact</label>
 	</div>
 
 	<div class='file-input group'>
-		<input type='file' name="avatar">
+		<input type='file' name="avatar"  autocomplete="off">
 		<span class='button'>Choose</span>
 		<span class='label' data-js-label>No file selected</label>
 	  </div>
