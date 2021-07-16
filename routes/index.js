@@ -11,23 +11,23 @@ const express = require('express'),
 	axios = require('axios'),
 	nodemailer = require('nodemailer'),
 	crypto = require('crypto'),
-	multer = require('./multer'),
-	cookieSession = require('cookie-session');
-// position = require('../public/javascripts/GeoLocation');
+	multer = require('./multer');
+
+	
 require('./google-api');
+
+if (typeof localStorage === "undefined" || localStorage === null) {
+	let LocalStorage = require('node-localstorage').LocalStorage;
+	localStorage = new LocalStorage('./scratch');
+  }
+
+  localStorage.setItem("loggedIn",false)
+  localStorage.setItem("loggedOut",false)
 
 // Initializes passport and passport sessions
 app.use(passport.initialize());
 app.use(passport.session());
 
-// console.log(latitude,longitude);
-// // auto detect user's location
-// axios
-// 	.get(`/geocoding/v5/mapbox.places/${longitude},${latitude}.json&access_token=${mapToken}`)
-// 	.then((body) => {
-// 		console.log(body);
-// 	})
-// 	.catch((e) => console.log(e));
 //================
 //AUTH ROUTES
 //================
@@ -41,7 +41,7 @@ app.get('/register', (req, res) => {
 app.post('/register', multer.upload.single('avatar'), async (req, res, next) => {
 	var newUser = await new User(req.body);
 
-	newUser.avatar = `/uploads/${req.file.originalname}`;
+	newUser.avatar = req.file ? `/uploads/${req.file.originalname}` : `/uploads/profile.png`;
 
 	await User.register(newUser, req.body.password);
 
@@ -61,15 +61,14 @@ app.get(
 app.get(
 	'/auth/google/callback',
 	passport.authenticate('google', {
-		successRedirect: '/',
+		// successRedirect: '/',
 		failureRedirect: '/'
-	})
+	}),(req,res)=>{
+		localStorage.setItem("loggedIn",true)
+		res.redirect("/");
+	}
 );
 
-app.get('/success', middleware.isLoggedIn, (req, res) => {
-	res.send('logged in!!');
-});
-app.get('/failure', (req, res) => res.send('failed!!'));
 //=============
 // handle password reset
 //=============
@@ -208,20 +207,58 @@ app.post('/reset/:token', function(req, res) {
 	);
 });
 
-
+//handle map token req
+app.get('/getMapToken', (req, res) => {
+	res.send(mapToken);
+});
 //handle login request
-app.post(
-	'/login',
-	passport.authenticate('local', {
-		successRedirect: '/',
-		failureRedirect: '/login'
-	})
-);
+// app.post(
+// 	'/login',
+// 	passport.authenticate('local', {
+// 		successRedirect: '/',
+// 		failureRedirect: '/login'
+// 	})
+// );
+
+// app.get(
+// 	'/login',
+// 	passport.authenticate('local'),
+// 	(req,res)=>{
+// 		localStorage.setItem('loggedIn',true);
+// 		res.redirect("/");
+// 	}
+// );
+
+app.get('/login', function(req, res, next) {
+	passport.authenticate('local', function(err, user, info) {
+	  if (err){
+		   return next(err); 
+	  }
+	  
+			
+	  if (!user) {
+			req.session.error = 'invalid username/password';
+		  return res.redirect('back'); 
+	  }
+	  
+
+	  req.logIn(user, function(err) {
+		if (err){
+			console.log('|RAY|3');
+			//  return next(err);
+		}
+		localStorage.setItem('loggedIn',true);
+
+		return res.redirect('/');
+	  });
+	})(req, res, next);
+  });
 
 //handle logout request
 app.get('/logout', (req, res) => {
 	req.session.destroy();
 	req.logout();
+	localStorage.setItem("loggedOut",true);
 	res.redirect('/');
 });
 

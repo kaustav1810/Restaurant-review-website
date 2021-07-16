@@ -13,7 +13,8 @@ var userSchema = new mongoose.Schema({
 	contact:String,
 	resetPasswordToken: String,
     resetPasswordExpires: Date,
-	  avatar:String,
+	avatar:String,
+	favCollections : { type : Array , "default" : [] }
 	// Reviews:[
 	// 	{
 	// 		id:{

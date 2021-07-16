@@ -1,26 +1,43 @@
 <%- include("partials/header") %>
+<%- include("./components/NavBar") %>
 
-<div class="container">
-	<div class="jumbotron">
-		<h1 class="display-4">Welcome to Critica</h1>
-		<p class="lead">Get ready to review and rate your fav dishes on the go!!</p>
-		<a href="/restaurants/new" class="btn btn-primary">Add a new restaurant</a>
+<div id="collection-container">
+	<% if (myCollection) { %>
+	 
+	<div class="restaurant-results-header">
+		<section class="restaurant-results-header-content">
+			
+			<div>
+				<img src="<%= myCollection.image_url%>" />
+			</div>
+					<a href="/collection/<%= myCollection.collection_id %>/save">
+					<button><i class="fas fa-plus"></i>Save collection</button>
+				</a>
+			<section>
+				<h1> <%= myCollection.title%></h1>
+				<h6> <%= myCollection.description%> </h6>
+				<p> <%= myCollection.res_count%> Places </p>
+			</section>
+		</section>
 	</div>
-	
-		<div class="container-fluid">
-			<div class="container">
+	<% } %>
+
 			<button id='filterBtn'>Filters</button>
 			<div class="row">
 			<% restaurants.forEach(function(rest){ %>
-				<div class="col-md-4">
-					<div class="card rest-card" style="width: 18rem;">
-						<img src=<%=rest.restaurant.featured_image%> class="card-img-top">
+				<div class="restaurant-cards">
+					<div class="card rest-card">
+						<form class="rest-card-bookmark" method="post" onsubmit="e.preventdefault();" action="/<%=rest.restaurant.id%>/bookmark">
+							<button type="submit"><i class="far fa-bookmark"></i></button>
+						</form>
+						<img src=<%=rest.restaurant.featured_image?rest.restaurant.featured_image:'/images/default-cover-img.jpg'%> class="card-img-top">
 						<div class="card-body">
 							<h5 class="card-title">
 								<a href='/<%=rest.restaurant.id%>/details' class='main-link'><%=rest.restaurant.name%></a>
 							</h5>
 							<p class="card-text">
 							user rating: <strong><%=rest.restaurant.user_rating.aggregate_rating%></strong>/5
+							user rating: <%# showRating(rest.restaurant.user_rating.aggregate_rating); %>
 							(<%=rest.restaurant.all_reviews_count%> reviews)<br>
 							Cost for 2:<%= rest.restaurant.average_cost_for_two%>
 							Contact: <%=rest.restaurant.phone_numbers%></p>
@@ -29,8 +46,37 @@
 				</div>
 			<% }) %>
 			</div>
-			</div>	
-		</div>
 </div>
+<%- include("./components/toast.ejs") %>
+
+<script type="text/javascript">
+if(<%= alreadyBookmarked %>) showToast('login-toast','bookmark removed!');
+
+else if(<%= isBookmarked%>) showToast('login-toast','bookmarked restaurant!');
+
+else if(<%= isCollectionBookmarked%>) showToast('login-toast','bookmarked collection!');
+
+const bookmarks = document.querySelectorAll('.fa-bookmark');
+
+bookmarks.forEach((bookmark)=>{
+
+bookmark.addEventListener('mouseover',()=>{
+	
+	bookmark.classList.remove('far');
+	bookmark.classList.add('fas');
+})
+bookmark.addEventListener('mouseout',()=>{
+	
+	bookmark.classList.remove('fas');
+	bookmark.classList.add('far');
+})
+
+	
+function yellow(){
+    console.log('test')
+
+}
+})
+</script>
 <%- include('./components/modals/filterModal') %> 
 <%- include("partials/footer") %>

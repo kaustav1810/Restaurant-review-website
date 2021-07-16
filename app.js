@@ -9,7 +9,7 @@ const express  				= require("express"),
 	expressSession			= require("express-session"),
     User					= require("./models/user"),
 	seedDB					= require("./seed");
-	
+
 // seedDB();
 //importing different ROUTES
 const indexRoutes = require("./routes/index"),
@@ -44,12 +44,7 @@ app.use((req,res,next)=>{
 })
 
 
-// HOME PAGE
-app.get("/",(req,res)=>{
-	res.render("landing");
-})
-
-app.use(indexRoutes,restaurantRoutes,reviewRoutes,userRoutes.app);
+app.use(indexRoutes,restaurantRoutes.app,reviewRoutes,userRoutes.app);
 
 app.listen(3000,()=>{
 	console.log("server started!!");

@@ -117,20 +117,6 @@ a{
 	cursor: pointer;
 	color: red;
 }
-.far {
-	padding-bottom: 10px;
-	padding-right: 10px;
-}
-
-.far:hover {
-	cursor: pointer;
-	color: red;
-}
-
-.fas:hover {
-	color: red;
-	cursor: pointer;
-}
 
 
 /* read more */
@@ -199,4 +185,48 @@ a{
 
 .modal-content{
 	height:100%;
+}
+
+.banner-login{
+	z-index: 200;
+	font-size: 1.2rem;
+	padding:1rem;
+	position: absolute;
+	top:0;
+	right:0;
+	display: flex;
+	justify-content: space-between;
+}
+
+.banner-login .dropdown-toggle{
+	color:white;
+}
+
+.toast{
+	position: fixed;
+	z-index: 999999;
+	right:1rem;
+	bottom:2rem;
+	background-color: rgb(41, 38, 38);
+}
+
+.rest-card-bookmark{
+	display: none;
+	position: absolute;
+	top:5px;
+	right:2px;
+	transition: 3s all ease-in-out;
+}
+
+.far.fa-bookmark,.fas.fa-bookmark{
+	
+	color: aliceblue;
+}
+.rest-card-bookmark button{
+	background-color: transparent;
+	outline: none;
+	border: none;
+}
+.rest-card:hover .rest-card-bookmark{
+	display: block;
 }

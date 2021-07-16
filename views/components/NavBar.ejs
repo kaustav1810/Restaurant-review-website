@@ -2,24 +2,32 @@
 	<div id="main">
 		
 		<nav class="navbar navbar-expand-lg">
-			<div class='nav-headers'>
-					<a  href="/">CRITICA</a>
-					<a  href="/">Home</a>
+			<div id="navbar-top">
+					<a  href="/" id="critica">CRITICA</a>
+					<a href="/"><i class="fas fa-home fa-2x"></i></a>
+			<div class="input-group navbar-search">
+				<form action="/results" class="form-inline">
+				<button class="btn btn-outline-secondary dropdown-toggle dropdown-location" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
+				<input id="city" type="hidden" name="city" />
+				<ul class="dropdown-menu">
+				  <li><a class="dropdown-item" href="#">Detect current location</a></li>
+				  <!-- <li><hr class="dropdown-divider"></li> -->
+				</ul>
+				<input type="text" class="form-control" name="rest" autocomplete="off"
+				placeholder="Enter name of restaurant" aria-label="Text input with dropdown button">
+				<button id="searchBtn" type="submit"><i class="fas fa-search"></i></button>
+				</form>
+			  </div>
 			</div>
-
-			<div>
-			<form action="/results" method="GET" class="form-inline">
-				<input class="search" name="city" placeholder="Enter Restaurant city">
-				| <input class="search" name="rest" placeholder="Enter Restaurant name">
-				<button class="btn btn-outline-success" type="submit">Search</button>
-			</form>
-			</div>
-			
 			<div class="sign-in-buttons">
 					
 					<% if(!currentUser){ %>
-							<button id="loginBtn" data-toggle="modal" data-target="#loginModal" class="btn btn-light rounded-pill">login</button>
-							<a class="nav-link" href="/register">Signup</a>
+							<button id="loginBtn" data-toggle="modal" data-target="#loginModal">
+								<i class="fas fa-sign-in-alt"></i>login
+							</button>
+							<a class="nav-link" href="/register">
+								<i class="fas fa-user-plus"></i>Signup
+							</a>
 						<% }else{ %>
 	
 								<div class="dropdown">
@@ -37,7 +45,14 @@
 			</div>
 		</nav>
 	<!-- </div> -->
+<script type="text/javascript">
+	let dropdown = document.querySelectorAll('.dropdown-toggle')[0];
 
+	console.log(dropdown.innerText);
+
+	dropdown.innerHTML = "";
+	dropdown.innerHTML = '<i class="fas fa-chevron-down"></i>';
+</script>
 <%- include('./modals/loginModal') %> 
   <!-- </div> -->
 

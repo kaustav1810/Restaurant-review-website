@@ -1,16 +1,34 @@
 <div class="user-profile-actions-tags">Bookmarks</div>
-    <% if(favourites.length==0){%>
+    <% if(Object.keys(favourites).length === 0){%>
         <img class="profile-svg" src="https://img.icons8.com/bubbles/2x/bookmark-ribbon.png" />
         <p>You have'nt bookmarked any restaurants yet!</p>
         <% }else{ %>
         <div class="user-bookmarked-restaurants">
-            <% favourites.forEach((restaurant)=>{ %>
+            <% favourites.favRests.forEach((restaurant)=>{ %>
                 <a href="/<%=restaurant.res_id%>/details">
         <div class="card text-center favRest">
             <img src="<%=restaurant.image%>" class="card-img-top" />
             <div class="card-body">
                     <h5 class="card-title"><%= restaurant.name %></h5>
               <a href="/<%=restaurant.res_id%>/<%=user._id%>/delete">
+                <button><i class="fas fa-bookmark"></i> Bookmark</button>
+            </a>
+            </div>
+        </div>
+        </a>
+        <% }) %>
+          </div>
+
+          <div class="user-bookmarked-restaurants">
+            <div class="user-profile-actions-tags">Collections</div>
+
+            <% favourites.favCollections.forEach((collection)=>{ %>
+                <a href="/collection/<%= collection.collection_id%>">
+        <div class="card text-center favRest">
+            <img src="<%=collection.image_url%>" class="card-img-top" />
+            <div class="card-body">
+                    <h5 class="card-title"><%= collection.title %></h5>
+              <a href="/collection/<%=collection.collection_id%>/<%=user._id%>/delete">
                 <button><i class="fas fa-bookmark"></i> Bookmark</button>
             </a>
             </div>

@@ -1,102 +1,217 @@
 <%- include("partials/header") %>
+<%- include("./components/NavBar") %>
 
 
 	<div class="show-page-body">
-		<div>
-			<% if(Restaurant.featured_image!=""){ %>
-				<img src="<%=Restaurant.featured_image%>"  class="rest-image img-fluid card-img-top">
-				
-				<% }else{ %>
-					<img src="https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/publications/food-beverage-nutrition/foodnavigator.com/article/2019/12/16/the-double-burden-of-malnutrition-obesity-and-undernutrition-fuelled-by-poor-quality-food/10478646-1-eng-GB/The-Double-Burden-of-Malnutrition-Obesity-and-undernutrition-fuelled-by-poor-quality-food_wrbm_large.jpg"
-					class="rest-image img-fluid card-img-top">
-					<% } %>
+		<div id="rest-details-header">
+			<img src=<%=Restaurant.featured_image?Restaurant.featured_image:"/images/default-cover-img.jpg"%>  class="rest-image">
+		<div id="rest-details-info">
+			<div id="rest-highlights">
+				<div></div>
+
+				<div></div>
+			</div>
+
+			<div id="rest-cuisines">
+				<div>
+				<div>Cuisines</div>
+				<div class="cuisines"></div>
 				</div>
-				<h2><%= Restaurant.name %> </h2>
 
-				<div class='rest-detail-info'>
-				<% Restaurant.highlights.forEach(function(highlight){ %>
-					<span class='badge rounded-pill bg-light text-dark'>
-
-					<%=highlight%>
-				</span>
-						<% }) %>
-					</div>
-				
-				<div class='rest-detail-info'>
-					<p><strong>Cuisines-</strong> <%= Restaurant.cuisines %></p>
-					<p>
-						<strong>Average Cost:</strong> 
-						Rs. <%= Restaurant.average_cost_for_two %> for 2 approx.
-					</p>
 			</div>
-
-			<div class='rest-detail-info'>
-				<p>Timing: <%= Restaurant.timings %></p>
-			</div>
-
-			<div class='rest-detail-info'>
-			<p><strong><%= Restaurant.all_reviews_count %></strong> reviews</p>
-
-			<p><strong><%= Restaurant.user_rating.aggregate_rating %>/5</strong></p>
-		</div>
 			
+			<% if(Restaurant.timings!=""){ %>
+			<div><i class="far fa-clock" style="margin-right:0.5rem"></i> <span><%= Restaurant.timings %></span></div>
+			<% } %>
+		</div>
+		</div>
+
+				<h1 id="rest-name"><%= Restaurant.name %> </h1>
+			<div class='rest-detail-info'>
+
+			<div id="rest-establishment">
+			<%= Restaurant.establishment%>
+			</div>
+
+			<div class="rest-bookmark">
+			<div class='show-page-rating'>
+			<strong>
+			<i class="fas fa-star-half-alt"></i>
+			<i class="fas fa-star-half-alt"></i>
+			<i class="fas fa-star-half-alt"></i>
+			<i class="fas fa-star-half-alt"></i>
+			<%= Restaurant.user_rating.aggregate_rating %>
+			</strong>
+			<p><%= Restaurant.all_reviews_count %> Dining reviews </p>
+
+			</div>
+
+			<div>
+			<form action="/<%=Restaurant.id%>/bookmark" method="POST" class="actions-buttons">
+				<button id="bookmark-icon">
+				<i class="fas fa-bookmark"></i>
+				</button>
+			</form>
+		</div>
+			</div>
+
+			
+		</div>
+	
 	<%# action buttons %> 
 	<div class='show-page-buttons'>
-		<button id="reviewBtn" class="btn btn-outline-danger">review</button>
+		<button id="reviewBtn" class="btn btn-outline-danger">
+		<i class="fas fa-edit"></i>Add Review
+		</button>
 
 		<form action="/<%=Restaurant.id%>/bookmark" method="POST" class="actions-buttons">
-				<button class="btn btn-outline-danger">bookmark</button>
-		</form>
+		<button id="directionBtn" class="btn btn-outline-danger">
+		<i class="fas fa-bookmark"></i>Bookmark
+		</button>
+		</form>	
 		
-		<button id="shareBtn" class="btn btn-outline-danger">share</button>
-				
+		<button id="shareBtn" class="btn btn-outline-danger">
+		<i class="fas fa-share"></i>Share
+		</button>
+
+			
 	</div>
 
-	<% const rest_address =  Restaurant.location.address %>
+	<ul class="nav nav-tabs">
+		<li class="nav-item">
+			<a class="nav-link active">Overview</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" >Reviews</a>
+		</li>
+		
+		<li class="nav-item">
+			<a class="nav-link" >Menu</a>
+		</li>
+	</ul>
 	
+	<div class="show-page-snippet">
 
-	<div class="map_review">
-	<%# map %> 
-	<div class='map-card'>
-		<p>Ph No: <%= Restaurant.phone_numbers %></p>
-		<strong>Direction</strong>
-		<div id='map'></div>
-		<p><%= rest_address %></p>
-		<button  id='directionBtn' class="btn btn-outline-danger">direction</button>
+	<%- include('./showPageReviews.ejs') %>
+
+	<%- include('./showPageOverview.ejs') %>
+
+	<div class="menu">
+		<a href="<%= Restaurant.menu_url%>" target="_blank">
+			<img src="/images/menu.jpg" />
+			<span>View Menu</span>
+		</a>
 	</div>
 
-
-	<%# user reviews %> 
-	<div class='review-section'>
-	<strong>Reviews</strong>
-	<% review.user_reviews.forEach(function(review){ %>
-		<% if(review.review.review_text!=""){ %>
-			<div class='review'>
-				<p class="show-read-more"><%= review.review.review_text %>
-				<em>by
-				<strong><%=review.review.user.name%></strong>
-				</em> on <%= review.review.review_time_friendly%>
-				</p>
-			</div>
-		<% } %>
-	<% }) %>
+	<%- include('./showPageMap.ejs') %>
 </div>
-	</div>
 	
-	<% if(Restaurant.photos!=null){ %>
-		<% Restaurant.photos.forEach(function(photo){ %>
-			<img src="<%=photo.photo.url%>" class="img-thumbnail img-fluid">
-		<% })} %>
 </div>
+</div>
+		<%- include("./components/toast.ejs") %>
 
+<script>
 
+	if(<%= alreadyBookmarked %>) showToast('login-toast','bookmark removed!');
 
-
+	else if(<%= isBookmarked%>) showToast('login-toast','bookmarked restaurant!');
+	
+	else if(<%= isReviewed%>) showToast('login-toast','Review added!');
+</script>
 <script type="text/javascript">
 	const mapToken = '<%-process.env.MAPBOX_TOKEN %>';
 	const res_id =  '<%- JSON.parse(Restaurant.id) %>';
 	const long = '<%- JSON.parse(Restaurant.location.longitude) %>';
 	const lat = '<%- JSON.parse(Restaurant.location.latitude) %>';
+	
+	let section1 = document.querySelector('#rest-highlights div:nth-of-type(1)');
+	
+	let section2 = document.querySelector('#rest-highlights div:nth-of-type(2)');
+	
+	let section3 = document.querySelector('#overview-more-info div:nth-of-type(2)');
+
+
+	let cuisineSections = document.querySelectorAll('.cuisines');
+
+	let highlights = <%- JSON.stringify(Restaurant.highlights) %>
+
+	highlights.sort((a,b)=>a.length-b.length);
+
+	highlights = highlights.slice(0,6);
+
+		for(let i=0;i<6;i++){
+
+			let h = document.createElement('span');
+
+			h.innerHTML = `<i class="far fa-check-circle"></i><span>${highlights[i]}</span>`;
+
+			if(i<3){
+				
+
+				section1.appendChild(h);
+
+				let cloneNode = h.cloneNode(true);
+				
+				section3.appendChild(cloneNode);
+			}
+
+			else section2.appendChild(h);
+
+		}
+		
+		let cuisines = <%- JSON.stringify(Restaurant.cuisines) %>
+
+		cuisines = cuisines.split(",").slice(0,4);
+
+		cuisineSections.forEach((section)=>{
+			cuisines.forEach((cuisine)=>{
+			let c = document.createElement('span');
+			
+			c.innerText = cuisine;
+
+			section.appendChild(c);
+		})
+		})
+		
+
+		// handling nav bar tab actions
+		let actionTabs = document.querySelectorAll('.nav-link');
+
+		let reviewSection = document.querySelector('.review-section');
+		
+		let overviewSection = document.querySelector('.rest-overview');
+
+
+		let menuSection = document.querySelector('.menu');
+
+
+		actionTabs.forEach((tab)=>{
+			tab.addEventListener('click',(e)=>{
+				actionTabs.forEach((tab)=>{
+					tab.classList.remove('active');
+				})
+
+				e.target.classList.toggle('active');
+
+				if(e.target.innerText=='Reviews'){
+					reviewSection.style.display = 'flex';
+					overviewSection.style.display = 'none';
+					menuSection.style.display = 'none';
+				}
+
+				else if(e.target.innerText=='Overview'){
+					reviewSection.style.display = 'none';
+					overviewSection.style.display = 'flex';
+					menuSection.style.display = 'none';
+				}
+
+				else{
+					reviewSection.style.display = 'none';
+					overviewSection.style.display = 'none';
+					menuSection.style.display = 'flex';
+				}
+			})
+		})
 
 </script>
 
@@ -104,5 +219,7 @@
 <%- include('./components/modals/reviewModal',{res_id:Restaurant.id}) %>
 
 <script src="/javascripts/showPageMap.js"></script>
+
+
 
 <%- include("partials/footer") %>

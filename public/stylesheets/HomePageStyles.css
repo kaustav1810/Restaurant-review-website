@@ -1,0 +1,224 @@
+.home-page-header{
+    background-image: url(https://b.zmtcdn.com/web_assets/81f3ff974d82520780078ba1cfbd453a1583259680.png);
+    width:100%;
+    height: 80vh;
+    margin:0;
+    color:white;
+    font-size: 2rem;
+    padding: 0;
+}
+
+.banner-login button,a{
+    color:white
+}
+
+.common{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-page-header-contents{
+    flex-direction: column;
+}
+
+.home-page-header-contents h1{
+    font-size: 5rem;
+    color:white;
+
+}
+
+.collections{
+    margin-top:2.5rem;
+    width:100%;
+    display:  flex;
+    flex-wrap: wrap;
+    padding: 1.2rem;
+}
+
+.restaurant-collection-card{
+    margin:1.2rem;
+    width:25%;
+}
+.restaurant-collection-card-content{
+    padding: 0px 5px 10px 2.5px;
+    position: relative;
+}
+
+.restaurant-collection-card-image{
+    border-radius: 20px;
+}
+
+.rest-card{
+    text-align: center;
+    
+    padding: 0;
+}
+
+.restaurant-cards{
+    width: 20%;
+    margin:1rem;
+}
+
+
+#cardImg{
+    max-width: 100%;
+    height: 400px; 
+    object-fit: cover;
+    transform: none;
+    opacity: 1;
+    will-change: transform, opacity;
+    border-radius: inherit;
+    filter: unset;
+    transition: opacity 0.25s ease 0s, transform 0.25s ease 0s;
+}
+
+.restaurant-collection-card-text{
+    z-index: 100;
+    position: absolute;
+    left: 15px;
+    bottom: 15px;
+    width:100%;
+}
+
+.restaurant-collection-card-text h6{
+    font-weight: 700;
+    font-size: 24px;
+    color: white;
+    letter-spacing: 2px;
+}
+.btn-outline-secondary{
+    margin-right: 0;
+    background:transparent;
+    border-color:white;
+    color:white;
+}
+
+.btn-outline-secondary:hover,.btn-outline-secondary.dropdown-toggle.show{
+    background: white;
+    color:black;
+    transition: 0.3s;
+}
+
+.btn-outline-secondary.dropdown-toggle.show:focus{
+    box-shadow: 0 0 0 0.25rem rgb(255 255 255 / 50%);
+}
+
+.form-control:focus{
+    outline: none;
+    border:none;
+}
+
+.restaurant-results-header,.restaurant-results-header-content{
+    position: relative;
+    width:100%;
+    text-align: center;
+}
+
+
+.restaurant-results-header-content img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+}
+
+#collection-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 70rem;
+    margin: 0 auto;
+}
+
+
+.restaurant-results-header-content div{
+    position: relative;
+    max-width: 100%;
+    height: 22rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.card-title a{
+    color:black
+}
+
+.restaurant-results-header-content section{
+    position: absolute;
+    bottom: 0px;
+    left:1rem;
+    text-align: initial;
+    z-index: 22222;
+    
+}
+
+.restaurant-results-header-content button{
+    position: absolute;
+    top:1rem;
+    right:1rem;
+    font-size: 0.8rem;
+    color:white;
+    z-index: 999;
+    font-weight: 400;
+    border: none;
+    outline: none;
+    border-radius: 2rem;
+    background-color: rgba(28,28,28,0.9);
+    backdrop-filter: blur(1.4rem);
+    opacity: 0.8;
+    padding:0.6rem;
+}
+
+.restaurant-results-header-content button i{
+    margin-right: 0.4rem;
+}
+
+.restaurant-results-header-content *{
+    color:white;
+    font-weight: 600;
+}
+
+@media screen and (max-width:500px){
+    
+    .common div{
+        font-size: 1.3rem;
+    }
+
+    .restaurant-collection-card{
+        width:100%;
+    }
+
+    .restaurant-collection-card-text h6{
+        font-size: 1rem;
+    }
+
+    .form-inline{
+        flex-direction: column;
+    }
+
+    .dropdown-toggle{
+        width:100%;
+        margin-bottom: 2rem;
+    }
+
+    #searchBtn{
+        top:4.6rem;
+    }
+
+    .restaurant-results-header-content section{
+        padding:0 1rem
+    }
+
+    .rest-card{
+        width: 80%;
+        padding: 0;
+    }
+    
+    .restaurant-cards{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+}

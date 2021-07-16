@@ -1,0 +1,38 @@
+<div class="rest-overview">
+    <div>
+        <h3>About this place</h3>
+
+    </div>
+
+    <div>
+        <div  class="overview-section-header">Menu</div>
+        <div class="overview-menu">
+            <a href="<%= Restaurant.menu_url%>" target="_blank">
+                <img src="/images/menu.jpg" />
+                <span>View Menu</span>
+            </a>
+        </div>
+    </div>
+    
+    <div>
+
+        <div class="overview-section-header">Cuisines</div>
+        <div class="cuisines"></div>
+    </div>
+    
+    <div id="overview-cost">
+        <div class="overview-section-header">Average Cost</div>
+        <span>₹<%= Restaurant.average_cost_for_two %> for 2 people approx.</span>
+        <span>Exclusive of applicable taxes and charges, if any</span>
+        <span>Cash and cards accepted</span>
+    </div>
+    
+    <div id="overview-more-info">
+        <div class="overview-section-header">More Info</div>
+        <div>
+
+        </div>
+    </div>
+    
+    <div></div>
+</div>

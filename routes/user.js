@@ -1,3 +1,5 @@
+const { collection } = require('../models/restaurant');
+
 const express = require('express'),
 	app = express.Router(),
 	passport = require('passport'),
@@ -7,7 +9,10 @@ const express = require('express'),
 	Review = require('../models/review'),
 	middleware = require('../middleware'),
 	User = require('../models/user'),
+	{getCollectionRestautants,getCollections} = require('./restaurants'),
 	multer = require('./multer');
+
+localStorage.setItem('alreadyBookmarked',false);
 
 //Bookmark a restaurant
 app.post('/:id/bookmark', async (req, res) => {
@@ -18,48 +23,125 @@ app.post('/:id/bookmark', async (req, res) => {
 	let res_id = req.params.id;
 	let newRestaurant = { res_id, user };
 
-	if (await isBookmarked(req.user._id, res_id)) return res.redirect(`/${res_id}/details`);
-
+	if (await checkIfRestaurantBookmarked(req.user._id, res_id)){
+	
+		return res.redirect(`/${res_id}/${user.id}/delete`);
+		
+	}
 	Restaurant.create(newRestaurant);
 
-	res.redirect(`/${res_id}/details`);
+	localStorage.setItem('isBookmarked',true);
+
+	res.redirect(`back`);
 });
+
+//bookmark a collection
+app.get('/collection/:id/save',async (req,res)=>{
+
+	if (await checkIfCollectionBookmarked(req.user._id, req.params.id)){
+	
+		return res.redirect(`/collection/${req.params.id}/${req.user._id}/delete`);
+		
+	}
+	User.updateOne({_id:req.user._id},
+		{ "$push": { "favCollections": req.params.id } }
+		,(err,affected,resp)=>{
+
+		console.log(err);
+	});
+
+	localStorage.setItem('isCollectionBookmarked',true);
+
+	res.redirect('back');
+})
 
 // delete a bookmarked restaurant
 app.get('/:resid/:userid/delete', async (req, res) => {
-	await Restaurant.deleteOne({ res_id: req.params.resid, 'user.id': user_id });
+	
+	user_id = req.params.userid;
+
+	let res_id =  req.params.resid;
+	
+	await Restaurant.deleteOne({ res_id, 'user.id': user_id });
 
 	userFavourites = await findFavourites(user_id);
 
-	res.redirect(`/user/${req.params.userid}`);
+	localStorage.setItem('alreadyBookmarked',true);
+
+	res.redirect('back');
 });
+
+// delete a bookmarked collection
+app.get("/collection/:collid/:userid/delete",async (req,res)=>{
+
+	let {favCollections} = await User.findById(req.params.userid).select('favCollections');
+
+	let collectionId = req.params.collid;
+
+	favCollections =  favCollections.filter((coll)=> coll!=collectionId);
+
+	await User.updateOne({_id:req.params.userid},{favCollections});
+
+	localStorage.setItem('alreadyBookmarked',true);
+
+	userFavourites = await findFavourites(req.params.userid);
+	
+	res.redirect('back');
+})
 
 // edit user profile
 app.get('/:userid/edit', async (req, res) => {
 	let user = await User.findOne({ _id: req.params.userid });
-	res.render('edit', { user });
+
+
+	res.render('edit', { user});
 });
 
 app.post('/:userid/edit', multer.upload.single('avatar'), async (req, res, next) => {
+	
+	let user_id = req.params.userid;
+
+	let oldUser = await User.findById(user_id);
+	
 	let updatedUser = await User.findOneAndUpdate(
-		{ _id: req.params.userid },
+		{ _id: user_id },
 		{
-			username: req.body.username,
-			firstName: req.body.firstName,
-			lastName: req.body.lastName,
-			email: req.body.email,
-			contact: req.body.contact,
-			avatar: `/uploads/${req.file.originalname}`
+			username: req.body.username || oldUser.username,
+			firstName: req.body.firstName || oldUser.firstName,
+			lastName: req.body.lastName || oldUser.lastName,
+			email: req.body.email || oldUser.email,
+			contact: req.body.contact || oldUser.contact,
+			avatar: (req.file)?`/uploads/${req.file.originalname}`:oldUser.avatar
 		},
 		{ new: true }
 	);
+	
+	localStorage.setItem('editedAccount',true);
 
 	res.redirect(`/user/${req.params.userid}`);
 });
 
 app.get('/user/:id/bookmarks', async (req, res) => {
-	res.render('user', { user, userReviews, favourites: userFavourites, bookmarks: true, reviews: false });
+	let alreadyBookmarked = localStorage.getItem('alreadyBookmarked');
+
+	localStorage.setItem('alreadyBookmarked',false);
+
+	res.render('user', { user, userReviews, favourites: userFavourites, bookmarks: true, reviews: false,alreadyBookmarked });
 });
+
+
+// delete an user's account
+app.get('/user/:id/deleteUser',async (req,res)=>{
+	user_id = req.params.id;
+
+	await User.deleteOne({_id:user_id},(err,user)=>{
+		console.log(`user deleted`);
+	});
+
+	localStorage.setItem('deletedAccount',true);
+
+	res.redirect("/");
+})
 
 // set user reviews and bookmarked restaurants globally
 let userReviews, userFavourites, user, user_id;
@@ -73,8 +155,18 @@ app.get('/user/:id', async (req, res) => {
 
 	userFavourites = await findFavourites(user_id);
 
-	res.render('user', { user, userReviews, favourites: userFavourites, bookmarks: false, reviews: true });
+	alreadyBookmarked = localStorage.getItem('alreadyBookmarked');
+	reviewDeleted = localStorage.getItem('reviewDeleted');
+	editedAccount = localStorage.getItem('editedAccount');
+
+	localStorage.setItem('alreadyBookmarked',false);
+	localStorage.setItem('reviewDeleted',false);
+	localStorage.setItem('editedAccount',false);
+
+	res.render('user', { user, userReviews, favourites: userFavourites, bookmarks: false, reviews: true,alreadyBookmarked,reviewDeleted,editedAccount });
+
 });
+
 
 // helper fn. for finding bookmarked restaurants
 async function findFavourites(id) {
@@ -84,7 +176,7 @@ async function findFavourites(id) {
 
 	let url1 = `${url}restaurant?apikey=${api}&res_id=`;
 
-	let favRestIds = await Restaurant.find().where('user.id').equals(user._id).exec();
+	let favRestIds = await Restaurant.find().where('user.id').equals(id).exec();
 
 	let favRests = [];
 
@@ -110,8 +202,31 @@ async function findFavourites(id) {
 			return restaurant;
 		})
 	);
+	
+	let {favCollections} = await User.findById(id).select('favCollections');
 
-	return favRests;
+	
+	let latitude = localStorage.getItem('latitude');
+	let longitude = localStorage.getItem('longitude');
+	
+	favCollections = await Promise.all(favCollections.map(async (col)=>{
+		let collections = await getCollections(latitude, longitude);
+
+		console.log(collections);
+
+		let restaurants = collections.filter((item) => item.collection.collection_id == parseInt(col));
+
+	
+		let myCollection = restaurants[0].collection;
+
+
+		return myCollection;
+	}))
+
+
+	if(favRests.length==0 && favCollections.length==0) return {};
+
+	return {favRests,favCollections};
 }
 
 async function findUserReviews(id) {
@@ -122,10 +237,19 @@ async function findUserReviews(id) {
 	return reviews;
 }
 
-async function isBookmarked(userid, res_id) {
+async function checkIfRestaurantBookmarked(userid, res_id) {
 	let bookmarked = await Restaurant.findOne({ res_id, 'user.id': userid });
 
 	return bookmarked ? true : false;
+}
+
+async function checkIfCollectionBookmarked(userid, collection_id) {
+
+	let {favCollections} = await User.findById(userid).select('favCollections');
+
+	let bookmarked = favCollections.indexOf(collection_id);
+
+	return (bookmarked!=-1) ? true : false;
 }
 
 module.exports = { app, findUserReviews };

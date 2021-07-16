@@ -5,6 +5,7 @@ const reviewBtn = document.getElementById('reviewBtn') || dummy;
 const shareBtn = document.getElementById('shareBtn') || dummy;
 const card = document.querySelectorAll('.rest-card') || dummy;
 const loginBtn = document.getElementById('loginBtn') || dummy;
+const bannerLoginBtn = document.querySelector('.banner-login-btn') || dummy;
 const filterBtn = document.querySelector('#filterBtn') || dummy;
 
 
@@ -12,7 +13,6 @@ const filterBtn = document.querySelector('#filterBtn') || dummy;
 card.forEach((card) => {
 	const mainLink = card.querySelector('.main-link');
 	card.addEventListener('click', () => {
-		console.log('myman!');
 		const isTextSelected = window.getSelection().toString();
 		if (!isTextSelected) {
 			mainLink.click();
@@ -97,7 +97,13 @@ loginBtn.addEventListener('click', ()=>{
 	openPopup('#loginModal');
 });
 
+bannerLoginBtn.addEventListener('click', ()=>{
+	openPopup('#loginModal');
+});
+
 filterBtn.addEventListener('click', () => {
 	openPopup('#filterModal');
 
 });
+
+console.log(bannerLoginBtn)

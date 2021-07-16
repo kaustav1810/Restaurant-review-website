@@ -2,6 +2,7 @@
 <html>
 
 <head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>restaurant app</title>
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
@@ -10,13 +11,14 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 	<link rel="stylesheet" href="/stylesheets/main.css">
 	<link rel="stylesheet" href="/stylesheets/NavBarStyles.css">
-	<link rel="stylesheet" href="/stylesheets/SideBarStyles.css">
+	<link rel="stylesheet" href="/stylesheets/FooterStyles.css">
 	<link rel="stylesheet" href="/stylesheets/ShowPageStyles.css">
 	<link rel="stylesheet" href="/stylesheets/SignUpFormStyles.css">
 	<link rel="stylesheet" href="/stylesheets/FormStyles.css">
 	<link rel="stylesheet" href="/stylesheets/UserPageStyles.css">
+	<link rel="stylesheet" href="/stylesheets/HomePageStyles.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
 <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
@@ -25,6 +27,8 @@ rel="stylesheet"
 href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css"
 type="text/css"
 />
+
+<script src="/javascripts/helper.js"></script>
  </head>
-<body>
- <%- include("../components/NavBar") %>
+<body onload="getLocation()">
+ <%# include("../components/NavBar") %>

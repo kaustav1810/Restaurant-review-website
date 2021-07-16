@@ -1,40 +1,80 @@
 <%- include("partials/header") %>
-	<div class="container">
-		<div class="container-fluid">
-			<h1>
-				Welcome to the Restaurants review website!!
-			</h1>
+<%- include('./components/modals/loginModal.ejs') %> 
+	<div class="home-page-header common">
+		<div class="banner-login">
+			<div class="sign-in-buttons">
+					
+				<% if(!currentUser){ %>
+						<button id="loginBtn" data-toggle="modal" data-target="#loginModal">
+							<i class="fas fa-sign-in-alt"></i>login
+						</button>
+						<a class="nav-link" href="/register">
+							<i class="fas fa-user-plus"></i>Signup
+						</a>
+					<% }else{ %>
 
-			<p>
-				review and rate your favourite restaurants on the go!!!!!!
-			</p>
-
-			<h1 class="display-4">What we do</h1>
-			<p class="lead">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent est justo, sodales non ex vel, volutpat luctus ante. Aenean dictum, ligula in pulvinar eleifend, nibh lacus porttitor sapien, sed ornare lectus elit in dolor. Phasellus mattis elit id interdum
-				finibus. Fusce eu ligula eu ligula cursus pharetra eget ac justo. Ut feugiat nulla nec rhoncus volutpat. Nunc finibus vestibulum nibh. Vivamus tortor diam, pretium eu scelerisque eu, tincidunt id est. Donec semper, sapien sed auctor scelerisque, leo
-				lorem condimentum mauris, vitae finibus enim nulla quis massa. Morbi tellus lectus, placerat a enim sed, accumsan iaculis mauris. Fusce auctor facilisis consectetur. Nullam consectetur justo orci, non imperdiet augue interdum vel. Pellentesque eu
-				odio ex. Aliquam sed nulla sed magna tristique malesuada ac eget turpis. Etiam iaculis facilisis lectus eu feugiat. Nunc ullamcorper placerat egestas. Sed consectetur mi id risus venenatis porta. Integer hendrerit in nibh ac rutrum.
-			</p>
-
-			<h1>
-				SEARCH FOR Restaurants!!
-			</h1>
-
-			<div class="row">
-				<div class="col-md-3">
-					<div class="card bg-dark text-white">
-						<img src="https://blog.sigmaphoto.com/wp-content/uploads/2019/07/cropped-pancakes.jpg" class="card-img">
-						<div class="card-img-overlay">
-							<h2 class="card-title">Card title</h2>
-							<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-							<p class="card-text">Last updated 3 mins ago</p>
-						</div>
-					</div>
-				</div>
-
-			</div>
+							<div class="dropdown">
+								<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+									<%= currentUser.firstName %>
+								</a>
+								
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+									<li><a class="dropdown-item" href="/user/<%=currentUser.id%>">Profile</a></li>
+									<li><a class="dropdown-item" href="#">Bookmarks</a></li>
+									<li><a class="dropdown-item" href="/logout">logout</a></li>
+								</ul>
+							</div>
+							<% } %>
 		</div>
+		</div>
+		<div>
+		<div class="home-page-header-contents common">
+			<h1>Critica</h1>
+			<div>Discover food & drinks around you!</div>
+		</div>
+
+			<div class="input-group mb-3 mt-5">
+				<form action="/results" class="form-inline">
+				<button class="btn btn-outline-secondary dropdown-toggle dropdown-location" type="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</button>
+				<input id="city" type="hidden" name="city" />
+				<ul class="dropdown-menu">
+				  <li><a class="dropdown-item" href="#">Detect current location</a></li>
+				  <!-- <li><hr class="dropdown-divider"></li> -->
+				</ul>
+				<input type="text" class="form-control" name="rest" placeholder="Enter name of restaurant" aria-label="Text input with dropdown button">
+				<button id="searchBtn" type="submit"><i class="fas fa-search"></i></button>
+				</form>
+			  </div>
+			</div>
 	</div>
+	<div class="collections">
+		<% collections.forEach(item => { %>
+			<div class="restaurant-collection-card">
+			<a href="/collection/<%= item.collection.collection_id%>">
+			<div class="restaurant-collection-card-content">
+				<div class="restaurant-collection-card-image">
+					<img id="cardImg" src="<%= item.collection.image_url%>"/>
+				</div>
+				<div class="restaurant-collection-card-text">
+						<h6><%= item.collection.title%></h6>
+						<h6><%= item.collection.res_count%> Places</h6>
+					</div>
+					
+				</div>
+			</a>
+		</div>
+		<% }); %>
 	</div>
+
+		<%- include("./components/toast.ejs") %>
+
+	  <script type="text/javascript">
+		
+	  	if(<%=loggedIn%>)  showToast('login-toast','Logged In!');
+
+		else if(<%=loggedOut%>)	showToast('login-toast','Logged Out!');
+
+		else if(<%=deletedAccount%>)	showToast('login-toast','Account Deleted!');
+
+	  </script>
 <%- include("partials/footer") %>

@@ -1,0 +1,19 @@
+<div class='review-section'>
+	<strong>Reviews(<%= review.reviews_count%>)</strong>
+	<% review.user_reviews.forEach(function({review}){ %>
+		<% if(review.review_text!=""){ %>
+			<div class='review'>
+				<div>
+					<img src='<%=review.user.profile_image %>' />
+					<a href="<%= review.user.profile_url%>" target="_blank" class="review-span"><strong><%=review.user.name%></strong></a>
+				</div>
+
+				<div>
+					<%= review.rating %> stars <span class="review-span"><%= review.review_time_friendly %></span>
+				</div>
+				<p class="show-read-more"><%= review.review_text %></p>
+				<p class="review-stats"><%= review.likes %> likes, <%= review.comments_count %> comments</p>
+			</div>
+		<% } %>
+	<% }) %>
+</div>

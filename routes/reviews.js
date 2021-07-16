@@ -8,6 +8,7 @@ const express = require('express'),
  Axios = require('axios'),
  userReview = require('./user')
 
+
 //CREATE-create a review and add to the particular restaurant
 app.post('/:id/review', async (req, res) => {
 	let author = {
@@ -45,7 +46,8 @@ app.post('/:id/review', async (req, res) => {
 	else
 	Review.create(newReview);
 
-	
+	localStorage.setItem('isReviewed',true);
+
 	res.redirect('/' + req.params.id + '/details');
 });
 
@@ -60,6 +62,8 @@ app.get('/:resid/:userid/reviews/delete', async (req, res) => {
 
 	userReviews = await userReview.findUserReviews(user_id);
 
+	localStorage.setItem('reviewDeleted',true);
+	
 	res.redirect(`/user/${user_id}`);
 });
 

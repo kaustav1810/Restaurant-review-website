@@ -1,4 +1,5 @@
 <%- include("partials/header") %>
+<%- include("./components/NavBar") %>
 
 	<div class="container user_profile">
 		<div class="container-fluid">
@@ -36,8 +37,8 @@
 				  <a href="/user/<%= user._id%>/bookmarks" class="list-group-item list-group-item-action" id=<%= bookmarks?"active-list-item":""%> >
 					  <h4>Bookmarks</h4>
 				  </a>
-				  <a href="#" class="list-group-item list-group-item-action">
-					  <h4>Recently viewed</h4>
+				  <a  data-bs-toggle="modal" href="#delete-modal" class="list-group-item list-group-item-action">
+					  <h4>Delete Account</h4>
 				  </a>
 			</div>
 			<div class="user-choosen-content">
@@ -51,5 +52,35 @@
 		</div>
 		</div>
 		</div>
+		<!-- Vertically centered modal -->
+		<div class="modal" id="delete-modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Account</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete your account?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Cancel</button>
+        <a href="/user/<%= user._id%>/deleteUser"><button type="button" class="btn btn-primary">Yes</button></a>
+      </div>
+    </div>
+  </div>
+</div>
 	</div>
+
+
+		<%- include("./components/toast.ejs") %>
+<script>
+
+	if(<%= alreadyBookmarked %>) showToast('login-toast','bookmark removed!');
+
+	else if(<%= reviewDeleted %>) showToast('login-toast','review deleted!');
+	
+	else if(<%= editedAccount %>) showToast('login-toast','details updated!');
+
+</script>
 <%- include("partials/footer") %>

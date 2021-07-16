@@ -30,3 +30,172 @@ a{
 #loginBtn{
     width:100px;
 }
+
+.form-inline{
+    display: flex;
+    flex-direction: row;
+  align-items: center;
+  width:100%;
+}
+
+.navbar-search.input-group{
+    width:50%;
+}
+
+.navbar-search .form-inline{
+    width: 100%;
+}
+
+.navbar-search #searchBtn{
+    right:0.6rem;
+}
+
+.navbar-search .btn-outline-secondary{
+    background: white;
+    color: black;
+    border-color: black;
+}
+
+#searchBtn{
+	position: absolute;
+	border: none;
+	outline: none;
+	background-color: transparent;
+	z-index:56;
+	right:1rem;
+	font-size: 1rem;
+}
+
+
+#navbar-top{
+    display: flex;
+    justify-content: flex-start;
+    width:100%;
+}
+
+.fa-user-plus,.fa-sign-in-alt{
+    margin-right: 0.5rem;
+}
+
+.sign-in-buttons a{
+    font-size: 1rem;
+}
+
+#loginBtn{
+    background: transparent;
+    outline: none;
+    border: none;
+    font-size: 1.1rem;
+}
+
+.nav-link{
+    display: inline-flex;
+    pointer-events: none;
+    color:black
+}
+
+input[name="rest"]{
+    letter-spacing: 2px;
+}
+
+#critica{
+    letter-spacing: 5px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.fas.fa-home{
+    display: none;
+    color: black;
+}
+
+
+
+/* responsive styling */
+
+@media screen and (max-width:1040px){
+
+    .navbar-search.input-group{
+        width:100%;
+    }
+    
+    .sign-in-buttons{
+        width:100%;
+        justify-content: flex-end;
+    }
+
+}
+
+@media screen and (max-width:700px){
+    input[name="rest"]{
+        letter-spacing: 1px;
+    }
+    .navbar{
+        justify-content: flex-start;
+    }
+
+    .navbar-search #searchBtn{
+        right:1rem;
+    }
+
+    .fas.fa-home{
+        display: flex;
+    }
+
+   #critica{
+    display: none;
+   }
+
+   .navbar-search.input-group{
+       width:80%;
+   }
+   
+    .dropdown-toggle{
+        width:40%;
+    }
+}
+
+@media screen and (max-width:650px){
+
+    .navbar-search.input-group{
+        width:100%;
+    }
+
+    .navbar-search .btn-outline-secondary{
+        width: 80%;
+
+    }
+
+    input[name="rest"]:focus{
+        width:90%;
+        transition: 0.6s all ease;
+    }
+
+    input[name="rest"]:focus ~ #searchBtn{
+        display: flex;
+        transition: 0.8s all ease;
+    }
+
+    #searchBtn{
+        display: none;
+    }
+}
+
+
+@media screen and (max-width:380px){
+    input[name="rest"]{
+        letter-spacing: 2px;
+        /* text-align: center; */
+        padding:0.5rem;
+        width:80%;
+    }
+
+    .dropdown-toggle{
+        padding: 0.2rem;
+    }
+    
+    .fas.fa-home{
+        font-size: 1.5rem;
+    }
+}
+

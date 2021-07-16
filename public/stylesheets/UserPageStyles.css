@@ -1,176 +1,244 @@
-.profile-header{
-    margin-bottom: 3rem;
-    height:250px;
-    background: linear-gradient(rgba(0, 0, 0, 0.13) 22.25%, rgba(0, 0, 0, 0.5) 55.5%) center center / cover no-repeat, url('https://b.zmtcdn.com/data/cover_images/521f3edeab96dd7e3e86b207bb32947a1548142686.jpeg');
-    background-position: center center;
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.profile-header-content{
-    display: flex;
-    width: 100%;
-    padding: 0px 1.7rem;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.profile-header-image,.profile-header-stats{
-    color: ivory;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
+.profile-header {
+  margin-bottom: 3rem;
+  height: 250px;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(22.25%, rgba(0, 0, 0, 0.13)), color-stop(55.5%, rgba(0, 0, 0, 0.5))) center center/cover no-repeat, url("https://b.zmtcdn.com/data/cover_images/521f3edeab96dd7e3e86b207bb32947a1548142686.jpeg");
+  background: linear-gradient(rgba(0, 0, 0, 0.13) 22.25%, rgba(0, 0, 0, 0.5) 55.5%) center center/cover no-repeat, url("https://b.zmtcdn.com/data/cover_images/521f3edeab96dd7e3e86b207bb32947a1548142686.jpeg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
-.profile-header-image img{
-    height: 14rem;
-    width: 14rem;
-    border-radius: 50%;
-    flex-shrink: 0;
-    border: 0.4rem solid rgb(255, 255, 255);
+.profile-header-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  padding: 0px 1.7rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.profile-header-info,.profile-header-stats{
-    margin-left: 1.5rem;
-    display: flex;
-    flex-direction: column;
+.profile-header-image, .profile-header-stats {
+  color: ivory;
+  font-weight: 600;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.profile-stats{
-    display: flex;
-    margin-top: 1.2rem;
+.profile-header-image img {
+  height: 14rem;
+  width: 14rem;
+  border-radius: 50%;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  border: 0.4rem solid white;
 }
 
-.profile-stats div{
-    padding-right: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    height: min-content;
-    border-right: 1px solid rgba(255, 255, 255, 0.9);
-    text-align: center;
-    color: rgb(255, 255, 255);
-    font-size: 2rem;
-    font-weight: 500;
+.profile-header-info, .profile-header-stats {
+  margin-left: 1.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-.profile-stats span{
-    font-size: 1rem;
-    letter-spacing: 1px;
-    line-height: 1;
+.profile-stats {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 1.2rem;
 }
 
-
-.profile-stats div:nth-child(2){
-    padding-right: 0;
-    padding-left: 1.5rem;
-    border-right: none;
+.profile-stats div {
+  padding-right: 1.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  border-right: 1px solid rgba(255, 255, 255, 0.9);
+  text-align: center;
+  color: white;
+  font-size: 2rem;
+  font-weight: 500;
 }
 
-.list-group{
-    width:40%;
+.profile-stats span {
+  font-size: 1rem;
+  letter-spacing: 1px;
+  line-height: 1;
 }
 
-.content{
-    display: flex;
+.profile-stats div:nth-child(2) {
+  padding-right: 0;
+  padding-left: 1.5rem;
+  border-right: none;
 }
 
-.user-choosen-content{
-    margin-left: 5rem;
-    max-width: 60%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.list-group {
+  width: 40%;
 }
 
-.user-profile-actions-tags{
-    font-weight: 900;
-    width: 100%;
-    font-size: 1.6rem;
-    line-height: 1;
-    letter-spacing: 2px;
-    margin-bottom: 1.2rem;
-}
-.profile-svg{
-    width: 200px;
-    height: 200px;
-    margin-bottom: 1.2rem;
+.content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
-.fa-trash{
-    opacity: 0;
-    transition: 0.3s;
-    margin:10px;
+.user-choosen-content {
+  margin-left: 5rem;
+  max-width: 60%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-
-.review:hover .fa-trash{
-    opacity: 1;
+.user-profile-actions-tags {
+  font-weight: 900;
+  width: 100%;
+  font-size: 1.6rem;
+  line-height: 1;
+  letter-spacing: 2px;
+  margin-bottom: 1.2rem;
 }
 
-.favRest{
-    margin:1rem;
-    width:200px;
-    max-height: 300px;
+.profile-svg {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 1.2rem;
 }
 
-.favRest button{
-    border:none;
-    outline:none;
-    padding:0.4rem;
-    font-size: 0.8rem;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(237, 90, 107);
-    border-radius: 15px;
-    color:rgb(237, 90, 107);
+.fa-trash {
+  opacity: 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  margin: 10px;
 }
 
-.favRest button:hover .fa-bookmark{
-    margin-right: 0.6rem;
-    transition: 0.4s ease-in-out;
+.review:hover .fa-trash {
+  opacity: 1;
 }
 
-.user-bookmarked-restaurants{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+.favRest {
+  margin: 1rem;
+  width: 200px;
+  max-height: 300px;
 }
 
-.card-img-top{
-    height: 150px;
-    width: 100%;
-    object-fit: cover;
+.favRest button {
+  border: none;
+  outline: none;
+  padding: 0.4rem;
+  font-size: 0.8rem;
+  background-color: white;
+  border: 1px solid #ed5a6b;
+  border-radius: 15px;
 }
 
-.list-group-item{
-    border:none;
+.favRest .fas.fa-bookmark {
+  color: #ed5a6b;
 }
 
-.list-group-item h4,.list-group-item{
-    font-size: 1rem;
-    font-weight: 800;
+.favRest button:hover .fas.fa-bookmark {
+  margin-right: 0.6rem;
+  -webkit-transition: 0.4s ease-in-out;
+  transition: 0.4s ease-in-out;
 }
 
-.list-group div{
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color:rgb(130,130,130);
+.user-bookmarked-restaurants {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-#active-list-item{
-    background: linear-gradient(
-270deg
-, rgb(247, 235, 236) 0%, rgba(251, 246, 247, 0) 92.47%);
-    border-left: 5px solid rgb(237, 90, 107);
-    color: rgb(237, 90, 107);
+.card-img-top {
+  height: 150px;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
-.review div{
-    letter-spacing: 1px;
-    line-height: 2;
-    display: flex;
-    flex-wrap: wrap;
-    word-break: break-all;
+.list-group-item {
+  border: none;
 }
+
+.list-group-item h4, .list-group-item {
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.list-group div {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #828282;
+}
+
+#active-list-item {
+  background: -webkit-gradient(linear, right top, left top, from(#f7ebec), color-stop(92.47%, rgba(251, 246, 247, 0)));
+  background: linear-gradient(270deg, #f7ebec 0%, rgba(251, 246, 247, 0) 92.47%);
+  border-left: 5px solid #ed5a6b;
+  color: #ed5a6b;
+}
+
+.review div {
+  letter-spacing: 1px;
+  line-height: 2;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  word-break: break-all;
+}
+
+#delete-modal {
+  top: 30%;
+  transition: 2s all ease;
+}
+
+.modal-dialog {
+  font-size: 1.2rem;
+}
+/*# sourceMappingURL=UserPageStyles.css.map */
